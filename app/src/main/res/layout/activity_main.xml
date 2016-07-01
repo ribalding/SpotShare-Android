@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.epicodus.parkr.MainActivity">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/backgroundImg"
+        android:src="@color/abc_search_url_text_normal"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/userNameInput"
+        android:layout_alignStart="@+id/userNameInput" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/car_img"
+        android:layout_alignBottom="@+id/userNameInput"
+        android:layout_centerHorizontal="true"
+        android:tint="#00ffffff" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parkr"
+        android:textSize="110sp"
+        android:textIsSelectable="true"
+        android:id="@+id/headline"
+        android:background="#00ffffff"
+        android:textColor="#eaeaea"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userNameInput"
+        android:textColor="@color/background_material_dark"
+        android:textSize="30sp"
+        android:textIsSelectable="true"
+        android:background="#eaeaea"
+        android:autoText="true"
+        android:textStyle="bold"
+        android:padding="10sp"
+        android:textAlignment="center"
+        android:hint="User Name"
+        android:singleLine="true"
+        android:layout_above="@+id/passwordInput"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordInput"
+        android:background="#eaeaea"
+        android:hint="Password"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:padding="10sp"
+        android:layout_above="@+id/loginButton"
+        android:layout_alignLeft="@+id/backgroundImg"
+        android:layout_alignStart="@+id/backgroundImg" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/loginButton"
+        android:layout_alignBottom="@+id/backgroundImg"
+        android:layout_alignRight="@+id/backgroundImg"
+        android:layout_alignEnd="@+id/backgroundImg"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:id="@+id/signUpButton"
+        android:background="#617f61"
+        android:textColor="#eaeaea"
+        android:padding="10sp"
+        android:layout_alignBottom="@+id/backgroundImg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+</RelativeLayout>

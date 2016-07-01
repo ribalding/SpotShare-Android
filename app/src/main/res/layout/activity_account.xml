@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.epicodus.parkr.AccountActivity">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/backgroundImg"
+        android:src="@color/abc_search_url_text_normal"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/userNameInput"
+        android:layout_alignStart="@+id/userNameInput" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parkr"
+        android:textSize="110sp"
+        android:textIsSelectable="true"
+        android:id="@+id/headline"
+        android:background="#00ffffff"
+        android:textColor="#eaeaea"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Back"
+        android:id="@+id/welcomeText"
+        android:textColor="#eaeaea"
+        android:textSize="20sp"
+        android:layout_below="@+id/headline"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/userNameDisplay"
+        android:layout_below="@+id/welcomeText"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp"
+        android:textColor="#eaeaea" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/optionsList"
+        android:layout_below="@+id/userNameDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
