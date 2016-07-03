@@ -10,9 +10,7 @@
         android:layout_height="fill_parent"
         android:id="@+id/backgroundImg"
         android:src="@color/abc_search_url_text_normal"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/userNameInput"
-        android:layout_alignStart="@+id/userNameInput" />
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,12 +27,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome Back"
         android:id="@+id/welcomeText"
         android:textColor="#eaeaea"
         android:textSize="20sp"
         android:layout_below="@+id/headline"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Welcome Back" />
 
     <TextView
         android:layout_width="wrap_content"
