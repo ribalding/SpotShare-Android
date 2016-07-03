@@ -1,5 +1,5 @@
 # Parkr
-##Track Parking Conditions By Area
+###Track Parking Conditions By Area
 
 ###by Ryan Harvey
 
@@ -9,17 +9,17 @@ This is an andorid App developed for the purpose of providing the user with info
 
 ##Setup 
 
-*Clone this repository 
-*Open Android Studio
-*Open project in Android Studio
-*Make sure you have an Emulator installed or an Android device connected to your computer
-*Click the "Run" button and select your device
+* Clone this repository 
+* Open Android Studio
+* Open project in Android Studio
+* Make sure you have an Emulator installed or an Android device connected to your computer
+* Click the "Run" button and select your device
 
 ##Technologies Used
  
-*Android Studio
-*XML
-*Java
+* Android Studio
+* XML
+* Java
 
 ##Legal
 
