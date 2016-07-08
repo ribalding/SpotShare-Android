@@ -3,20 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.parkr.SignUpActivity">
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/backgroundImg"
-        android:src="@color/abc_search_url_text_normal"
-        android:layout_centerVertical="true"/>
+    tools:context="com.epicodus.parkr.SignUpActivity"
+    android:background="@color/abc_search_url_text_normal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parkr"
-        android:textSize="110sp"
+        android:text="Spot Share"
+        android:textSize="70sp"
         android:textIsSelectable="true"
         android:id="@+id/signupHeadline"
         android:background="#00ffffff"
@@ -27,29 +21,30 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/newUserNameEditText"
         android:hint="User Name"
         android:textAlignment="center"
         android:background="#eaeaea"
-        android:layout_below="@+id/signupHeadline"
-        android:layout_alignRight="@+id/signupHeadline"
-        android:layout_alignEnd="@+id/signupHeadline"
-        android:layout_alignLeft="@+id/signupHeadline"
-        android:layout_alignStart="@+id/signupHeadline"
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@+id/signupHeadline"
+        android:layout_alignLeft="@+id/signupHeadline"
+        android:layout_alignStart="@+id/signupHeadline"
+        android:layout_marginTop="48dp"
+        android:layout_alignRight="@+id/signupHeadline"
+        android:layout_alignEnd="@+id/signupHeadline" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/newEmailEditText"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/newUserNameEditText"
+        android:layout_alignRight="@+id/newUserNameEditText"
+        android:layout_alignEnd="@+id/newUserNameEditText"
+        android:layout_alignLeft="@+id/newUserNameEditText"
+        android:layout_alignStart="@+id/newUserNameEditText"
         android:background="#eaeaea"
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
@@ -60,18 +55,18 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText3"
+        android:id="@+id/newPasswordEditText"
         android:layout_marginTop="22dp"
         android:background="#eaeaea"
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
         android:textAlignment="center"
         android:hint="Password"
-        android:layout_below="@+id/editText2"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
+        android:layout_below="@+id/newEmailEditText"
+        android:layout_alignLeft="@+id/newEmailEditText"
+        android:layout_alignStart="@+id/newEmailEditText"
+        android:layout_alignRight="@+id/newEmailEditText"
+        android:layout_alignEnd="@+id/newEmailEditText"
         android:textStyle="bold" />
 
     <EditText
@@ -85,17 +80,17 @@
         android:textAlignment="center"
         android:hint="Confirm Password"
         android:textStyle="bold"
-        android:layout_below="@+id/editText3"
-        android:layout_alignRight="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_below="@+id/newPasswordEditText"
+        android:layout_alignRight="@+id/newPasswordEditText"
+        android:layout_alignEnd="@+id/newPasswordEditText"
+        android:layout_alignLeft="@+id/newPasswordEditText"
+        android:layout_alignStart="@+id/newPasswordEditText" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/button"
+        android:id="@+id/submitSignUpButton"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="34dp"
         android:layout_alignRight="@+id/editText4"

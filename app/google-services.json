@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "729719733666",
+    "firebase_url": "https://spot-share.firebaseio.com",
+    "project_id": "spot-share",
+    "storage_bucket": "spot-share.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729719733666:android:f55ed9a7e418db60",
+        "android_client_info": {
+          "package_name": "com.epicodus.parkr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729719733666-5hbl67mohrmtvnpm32q0ko1qg9603ocu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.parkr",
+            "certificate_hash": "EADBC95EA751952C6A988EAA4D81660E91861CDF"
+          }
+        },
+        {
+          "client_id": "729719733666-sf5iq5ub0aeesivl51tri692046a2d2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0QmoRFQC7JqXvOj4ZvJ9Uy9YqzFxH-6U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729719733666-sf5iq5ub0aeesivl51tri692046a2d2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.headline)TextView mHeadline;
+    @Bind(R.id.headline2) TextView mHeadline2;
     @Bind(R.id.signUpButton)Button mSignUpButton;
     @Bind(R.id.loginButton) Button mLoginButton;
     @Bind(R.id.userNameInput) EditText mUserNameInput;
@@ -25,8 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/seas.ttf");
+        Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mHeadline.setTypeface(newFont);
+        mHeadline2.setTypeface(newFont);
         mSignUpButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
     }
