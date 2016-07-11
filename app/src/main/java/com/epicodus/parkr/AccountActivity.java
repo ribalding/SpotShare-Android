@@ -20,18 +20,14 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     @Bind(R.id.userNameDisplay) TextView mUserNameDisplay;
     @Bind(R.id.headline) TextView mHeadline;
-    @Bind(R.id.optionsList)ListView mOptionsList;
     @Bind(R.id.logOutButton) Button mLogOutButton;
-    String[] options = new String[]{"Find Parking Near Me", "My Saved Spots", "Post An Open Spot"};
+    @Bind(R.id.findSpotsButton) Button mFindSpotsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, options);
-        mOptionsList.setAdapter(adapter);
 
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mHeadline.setTypeface(newFont);
@@ -40,6 +36,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         String userName = infoIntent.getStringExtra("user");
         mUserNameDisplay.setText(userName);
 
+        mFindSpotsButton.setOnClickListener(this);
         mLogOutButton.setOnClickListener(this);
     }
 
@@ -55,6 +52,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if(view == mLogOutButton){
             logout();
+        } else if (view == mFindSpotsButton){
+            Intent findSpotIntent = new Intent (AccountActivity.this, MapsActivity.class);
+            startActivity(findSpotIntent);
         }
     }
 }

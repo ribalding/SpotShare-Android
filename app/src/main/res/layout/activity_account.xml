@@ -42,22 +42,35 @@
         android:textSize="50sp"
         android:textColor="#eaeaea" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/optionsList"
-        android:layout_below="@+id/userNameDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/logOutButton" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log Out"
         android:id="@+id/logOutButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/headline"
+        android:layout_alignEnd="@+id/headline"
+        android:background="@android:color/holo_red_light"
+        android:textColor="#eaeaea"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Spots"
+        android:id="@+id/findSpotsButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post A Spot"
+        android:id="@+id/postSpotButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/welcomeText"
+        android:layout_alignStart="@+id/welcomeText" />
 
 </RelativeLayout>
 </FrameLayout>
