@@ -1,11 +1,10 @@
-# Parkr
-###Track Parking Conditions By Area
+# Spot Share
 
 ###by Ryan Harvey
 
 ##Description
 
-This is an andorid App developed for the purpose of providing the user with information about parking in a given area.  
+This is an andorid App which gives people the ability to post parking spots that they own for rent during specified hours, and for others to seek spots for rent. 
 
 ##Setup 
 
