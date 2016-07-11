@@ -24,9 +24,17 @@
 
     <TextView
         android:layout_width="138dp"
-        android:layout_height="69dp"
+        android:layout_height="30dp"
         android:text="Longitude"
         android:id="@+id/longitude"
         android:layout_gravity="right|top" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Spot Here"
+        android:id="@+id/addSpotButton"
+        android:layout_gravity="center_horizontal|bottom" />
 
 </FrameLayout>

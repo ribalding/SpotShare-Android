@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,8 @@ public class MapsActivity extends FragmentActivity
         OnMyLocationButtonClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback,
         ConnectionCallbacks,
-        OnConnectionFailedListener {
+        OnConnectionFailedListener,
+        View.OnClickListener {
 
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
@@ -48,13 +51,13 @@ public class MapsActivity extends FragmentActivity
 
     @Bind(R.id.latitude) TextView mLatitudeText;
     @Bind(R.id.longitude) TextView mLongitudeText;
+    @Bind(R.id.addSpotButton) Button mAddSpotButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         ButterKnife.bind(this);
 
@@ -62,9 +65,9 @@ public class MapsActivity extends FragmentActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mAddSpotButton.setOnClickListener(this);
+
         if (mGoogleApiClient == null) {
-            // ATTENTION: This "addApi(AppIndex.API)"was auto-generated to implement the App Indexing API.
-            // See https://g.co/AppIndexing/AndroidStudio for more information.
             mGoogleApiClient = new Builder(this)
                     .addConnectionCallbacks(this)
                     .addApi(LocationServices.API)
@@ -76,8 +79,6 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
     }
@@ -91,11 +92,9 @@ public class MapsActivity extends FragmentActivity
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Permission to access the location is missing.
             PermissionUtils.requestPermission(MapsActivity.this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
-            // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -110,10 +109,8 @@ public class MapsActivity extends FragmentActivity
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // Enable the my location layer if the permission has been granted.
             enableMyLocation();
         } else {
-            // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
         }
     }
@@ -121,15 +118,9 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onConnected(Bundle connectionHint) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
@@ -145,18 +136,11 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         mGoogleApiClient.connect();
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Maps Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "Maps Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://com.epicodus.parkr/http/host/path")
         );
         AppIndex.AppIndexApi.start(mGoogleApiClient, viewAction);
@@ -165,17 +149,10 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Maps Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "Maps Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://com.epicodus.parkr/http/host/path")
         );
         AppIndex.AppIndexApi.end(mGoogleApiClient, viewAction);
@@ -185,5 +162,20 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == mAddSpotButton){
+            addSpot(mLatitudeText.getText().toString(), mLongitudeText.getText().toString());
+        }
+    }
+
+    public void addSpot(String lat, String longitude){
+        Double convertedLat = Double.parseDouble(lat);
+        Double convertedLong = Double.parseDouble(longitude);
+        LatLng thisLocation = new LatLng(convertedLat, convertedLong);
+        mMap.addMarker(new MarkerOptions().position(thisLocation).title("New Location"));
+        Toast.makeText(MapsActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
     }
 }
