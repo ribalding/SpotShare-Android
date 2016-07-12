@@ -1,5 +1,6 @@
 package com.epicodus.parkr;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -25,17 +26,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog mSignInProgressDialog;
+
     @Bind(R.id.headline)TextView mHeadline;
     @Bind(R.id.headline2) TextView mHeadline2;
     @Bind(R.id.signUpButton)Button mSignUpButton;
     @Bind(R.id.loginButton) Button mLoginButton;
-    @Bind(R.id.userNameInput) EditText mUserNameInput;
+    @Bind(R.id.emailInput) EditText mEmailInput;
     @Bind(R.id.passwordInput) EditText mPasswordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createSignInProgressDialog();
         mAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
 
@@ -71,14 +76,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void login(){
-        mAuth.signInWithEmailAndPassword(mUserNameInput.getText().toString(), mPasswordInput.getText().toString())
+
+        final String email = mEmailInput.getText().toString();
+        final String pass = mPasswordInput.getText().toString();
+
+        if(!isNotEmpty(email) || !isNotEmpty(pass)) return;
+
+        mSignInProgressDialog.show();
+        mAuth.signInWithEmailAndPassword(email, mPasswordInput.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                    mSignInProgressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Intent loginIntent = new Intent (MainActivity.this, AccountActivity.class);
                             startActivity(loginIntent);
+                        } else if (!task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -97,4 +111,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+    private void createSignInProgressDialog() {
+        mSignInProgressDialog = new ProgressDialog(this);
+        mSignInProgressDialog.setTitle("Loading...");
+        mSignInProgressDialog.setMessage("Signing In...");
+        mSignInProgressDialog.setCancelable(false);
+    }
+
+    private Boolean isNotEmpty(String email){
+        if(email.equals("")){
+            mEmailInput.setError("Blank Field");
+            return false;
+        }
+     return true;
+    }
+
 }

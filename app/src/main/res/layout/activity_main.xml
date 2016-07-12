@@ -48,7 +48,7 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/userNameInput"
+        android:id="@+id/emailInput"
         android:textColor="@color/background_material_dark"
         android:textSize="20sp"
         android:textIsSelectable="true"
@@ -73,8 +73,8 @@
         android:textSize="20sp"
         android:padding="10sp"
         android:layout_above="@+id/loginButton"
-        android:layout_alignLeft="@+id/userNameInput"
-        android:layout_alignStart="@+id/userNameInput" />
+        android:layout_alignLeft="@+id/emailInput"
+        android:layout_alignStart="@+id/emailInput" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

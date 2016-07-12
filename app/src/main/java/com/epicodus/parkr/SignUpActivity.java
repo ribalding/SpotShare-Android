@@ -1,5 +1,6 @@
 package com.epicodus.parkr;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -25,6 +26,8 @@ import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ProgressDialog mAuthProgressDialog;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Bind(R.id.signupHeadline) TextView mHeadline;
@@ -40,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
+        createAuthProgressDialog();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
@@ -66,10 +70,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String password = mNewPasswordEditText.getText().toString().trim();
         String confirmPassword = mNewConfirmPasswordEditText.getText().toString().trim();
 
+        boolean validEmail = isValidEmail(email);
+        boolean validName = isValidName(name);
+        boolean validPassword = isValidPassword(password, confirmPassword);
+        if(!validEmail|| !validName || !validPassword) return;
+
+        mAuthProgressDialog.show();
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        mAuthProgressDialog.dismiss();
+
                         if (task.isSuccessful()) {
                             Log.d("blergh", "Authentication successful");
                         } else {
@@ -108,4 +122,44 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail =
+                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mNewEmailEditText.setError("Please enter a valid email address");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mNewFullNameEditText.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (password.length() < 6) {
+            mNewPasswordEditText.setError("Please create a password containing at least 6 characters");
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            mNewPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
+    }
+
+
+
+
 }
