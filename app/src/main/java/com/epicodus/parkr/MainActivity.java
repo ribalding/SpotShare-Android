@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(signUpIntent);
         }else if(v == mLoginButton){
             login();
+            finish();
         }
     }
 

@@ -27,7 +27,6 @@ import butterknife.ButterKnife;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressDialog mAuthProgressDialog;
-    private DatabaseReference mUserReference;
     private DatabaseReference mSpecificUserReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -45,8 +44,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER);
 
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
@@ -88,8 +85,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        mAuthProgressDialog.dismiss();
+                        if (task.isSuccessful()) {
+                            mAuthProgressDialog.dismiss();
 
+                        } else {
+                            mAuthProgressDialog.dismiss();
+                            Toast.makeText(SignUpActivity.this, "WHY", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }

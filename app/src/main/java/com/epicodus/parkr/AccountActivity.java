@@ -12,11 +12,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AccountActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private FirebaseAuth mAuth;
+    private String uid;
+    private DatabaseReference mSpecificUserReference;
 
     @Bind(R.id.userNameDisplay) TextView mUserNameDisplay;
     @Bind(R.id.headline) TextView mHeadline;
@@ -25,6 +34,25 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+        mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+
+        mSpecificUserReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("test", dataSnapshot.child("email").toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
