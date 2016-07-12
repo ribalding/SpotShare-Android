@@ -1,30 +1,29 @@
 package com.epicodus.parkr;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ryan on 7/8/2016.
  */
 public class User {
-    private String user_name;
     private String password;
     private String email;
     private String full_name;
+    private String firebaseAuthID;
+    private ArrayList<Spot> spots;
+
 
     public User(){}
 
-    public User(String name, String pass, String email, String fullName){
-        this.user_name = name;
+    public User(String id, String fullName, String pass, String email){
+        this.firebaseAuthID = id;
         this.password = pass;
         this.email = email;
         this.full_name = fullName;
     }
 
-    public String getUserName(){
-        return this.user_name;
-    }
 
-    public String getPassword(){
-        return this.password;
-    }
+    public String getPassword(){return this.password;}
 
     public String getEmail(){
         return this.email;
@@ -34,9 +33,10 @@ public class User {
         return this.full_name;
     }
 
-    public void setUserName(String newName){
-        this.user_name = newName;
-    }
+    public ArrayList<Spot> getSpots(){ return this.spots; }
+
+    public String getFirebaseAuthID(){return this.firebaseAuthID;}
+
 
     public void setPassword(String newPass){
         this.password = newPass;
@@ -49,4 +49,6 @@ public class User {
     public void setFullName(String fullName){
         this.full_name = fullName;
     }
+
+
 }

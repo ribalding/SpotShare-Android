@@ -27,9 +27,14 @@ import butterknife.ButterKnife;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressDialog mAuthProgressDialog;
-
+    private DatabaseReference mUserReference;
+    private DatabaseReference mSpecificUserReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private String name;
+    private String email;
+    String password;
+    String confirmPassword;
     @Bind(R.id.signupHeadline) TextView mHeadline;
     @Bind(R.id.submitSignUpButton) Button mSubmitSignUpButton;
     @Bind(R.id.newEmailEditText) EditText mNewEmailEditText;
@@ -40,6 +45,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER);
 
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
@@ -65,10 +72,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createNewUser() {
-        final String name = mNewFullNameEditText.getText().toString().trim();
-        final String email = mNewEmailEditText.getText().toString().trim();
-        String password = mNewPasswordEditText.getText().toString().trim();
-        String confirmPassword = mNewConfirmPasswordEditText.getText().toString().trim();
+        name = mNewFullNameEditText.getText().toString().trim();
+        email = mNewEmailEditText.getText().toString().trim();
+        password = mNewPasswordEditText.getText().toString().trim();
+        confirmPassword = mNewConfirmPasswordEditText.getText().toString().trim();
 
         boolean validEmail = isValidEmail(email);
         boolean validName = isValidName(name);
@@ -81,15 +88,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         mAuthProgressDialog.dismiss();
 
-                        if (task.isSuccessful()) {
-                            Log.d("blergh", "Authentication successful");
-                        } else {
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
     }
@@ -100,6 +100,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    String uid = user.getUid();
+                    mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+                    User newUser = new User(uid, name, password, email);
+                    saveUserToFirebase(newUser);
+
+
                     Intent intent = new Intent(SignUpActivity.this, AccountActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -160,6 +166,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
+    private void saveUserToFirebase(User user){
+        mSpecificUserReference.setValue(user);
+    }
 
 }
