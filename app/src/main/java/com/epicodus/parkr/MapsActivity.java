@@ -30,6 +30,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -47,11 +49,16 @@ public class MapsActivity extends FragmentActivity
         View.OnClickListener {
 
     private DatabaseReference mSpotReference;
+    private DatabaseReference mUserReference;
+    private String uid;
+    private FirebaseAuth mAuth;
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
+    private boolean markerCheck = true;
+    private LatLng position;
 
 
     @Bind(R.id.addSpotButton) Button mAddSpotButton;
@@ -65,6 +72,11 @@ public class MapsActivity extends FragmentActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+        mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots");
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -95,7 +107,11 @@ public class MapsActivity extends FragmentActivity
 
             @Override
             public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
+                if(markerCheck) {
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
+                    position = latLng;
+                    markerCheck = false;
+                }
             }
         });
 
@@ -185,14 +201,18 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onClick(View view) {
         if(view == mAddSpotButton){
-//            addSpot(mLatitudeText.getText().toString(), mLongitudeText.getText().toString());
-//            mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots").child();
+            String description = mSpotDescriptionEditText.getText().toString();
+            String startDate = mStartDate.getText().toString();
+            String startTime = mStartTime.getText().toString();
+            String endDate = mEndDate.getText().toString();
+            String endTime = mEndTime.getText().toString();
+            addSpot(uid, description, position, startDate, startTime, endDate, endTime);
         }
     }
 
-    public void addSpot(String ownerId, String startDate, String startTime, String endDate, String endTime, String description, LatLng spot){
+    public void addSpot(String ownerId, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
         Spot newSpot = new Spot(ownerId, description, spot, startDate, startTime, endDate, endTime);
-
+        mSpotReference.setValue(newSpot);
         Toast.makeText(MapsActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
     }
 
