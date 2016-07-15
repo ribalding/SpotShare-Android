@@ -99,14 +99,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/testButton"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>

@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +27,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.userNameDisplay) TextView mUserNameDisplay;
     @Bind(R.id.headline) TextView mHeadline;
     @Bind(R.id.logOutButton) Button mLogOutButton;
-    @Bind(R.id.findSpotsButton) Button mFindSpotsButton;
+    @Bind(R.id.postSpotButton) Button mPostSpotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +62,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         String userName = infoIntent.getStringExtra("user");
         mUserNameDisplay.setText(userName);
 
-        mFindSpotsButton.setOnClickListener(this);
+        mPostSpotButton.setOnClickListener(this);
         mLogOutButton.setOnClickListener(this);
     }
 
@@ -81,9 +78,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if(view == mLogOutButton){
             logout();
-        } else if (view == mFindSpotsButton){
-            Intent findSpotIntent = new Intent (AccountActivity.this, MapsActivity.class);
-            startActivity(findSpotIntent);
+        } else if (view == mPostSpotButton){
+            Intent postSpotIntent = new Intent (AccountActivity.this, NewSpotActivity.class);
+            startActivity(postSpotIntent);
         }
     }
 }

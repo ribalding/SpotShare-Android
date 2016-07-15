@@ -1,39 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.epicodus.parkr">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.epicodus.parkr">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-<uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/car_icon"
+        android:label="SpotShare"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<application android:allowBackup="true" android:icon="@mipmap/car_icon" android:label="SpotShare"
-    android:supportsRtl="true" android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignUpActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epicodus.parkr.MainActivity" />
+        </activity>
+        <activity android:name=".AccountActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epicodus.parkr.MainActivity" />
+        </activity>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity android:name=".SignUpActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.epicodus.parkr.MainActivity"/>
-    </activity>
-    <activity android:name=".AccountActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.epicodus.parkr.MainActivity"/>
-    </activity>
-    <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyD5vnv7KtcGz1SzPPw-csqUhxlDrJMQXAM" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD5vnv7KtcGz1SzPPw-csqUhxlDrJMQXAM" />
 
-    <activity android:name="com.epicodus.parkr.MapsActivity" android:label="@string/title_activity_maps">
+        <activity
+            android:name=".NewSpotActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-    </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-
-</application>
+        <activity android:name=".FindSpotsActivity"></activity>
+    </application>
 
 </manifest>
-
-
