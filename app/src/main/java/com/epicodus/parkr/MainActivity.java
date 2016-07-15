@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.loginButton) Button mLoginButton;
     @Bind(R.id.emailInput) EditText mEmailInput;
     @Bind(R.id.passwordInput) EditText mPasswordInput;
+    @Bind(R.id.testButton) Button mTestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSignUpButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
+        mTestButton.setOnClickListener(this);
 
     }
 
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            mSignInProgressDialog.show();
             login();
             finish();
+        }else if (v == mTestButton){
+            login();
+            Intent testIntent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(testIntent);
         }
     }
 

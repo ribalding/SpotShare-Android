@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,15 +46,21 @@ public class MapsActivity extends FragmentActivity
         OnConnectionFailedListener,
         View.OnClickListener {
 
+    private DatabaseReference mSpotReference;
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
 
-    @Bind(R.id.latitude) TextView mLatitudeText;
-    @Bind(R.id.longitude) TextView mLongitudeText;
+
     @Bind(R.id.addSpotButton) Button mAddSpotButton;
+    @Bind(R.id.startDate) EditText mStartDate;
+    @Bind(R.id.endDate) EditText mEndDate;
+    @Bind(R.id.startTime) EditText mStartTime;
+    @Bind(R.id.endTime) EditText mEndTime;
+    @Bind(R.id.spotDescriptionEditText) EditText mSpotDescriptionEditText;
+
 
 
     @Override
@@ -73,14 +82,23 @@ public class MapsActivity extends FragmentActivity
                     .addApi(LocationServices.API)
                     .addApi(AppIndex.API).build();
         }
-    }
 
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
+
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
+            }
+        });
+
     }
 
     @Override
@@ -123,8 +141,8 @@ public class MapsActivity extends FragmentActivity
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
-            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+//            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+//            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         }
     }
 
@@ -167,15 +185,18 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onClick(View view) {
         if(view == mAddSpotButton){
-            addSpot(mLatitudeText.getText().toString(), mLongitudeText.getText().toString());
+//            addSpot(mLatitudeText.getText().toString(), mLongitudeText.getText().toString());
+//            mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots").child();
         }
     }
 
-    public void addSpot(String lat, String longitude){
-        Double convertedLat = Double.parseDouble(lat);
-        Double convertedLong = Double.parseDouble(longitude);
-        LatLng thisLocation = new LatLng(convertedLat, convertedLong);
-        mMap.addMarker(new MarkerOptions().position(thisLocation).title("New Location"));
+    public void addSpot(String ownerId, String startDate, String startTime, String endDate, String endTime, String description, LatLng spot){
+        Spot newSpot = new Spot(ownerId, description, spot, startDate, startTime, endDate, endTime);
+
         Toast.makeText(MapsActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
 }
