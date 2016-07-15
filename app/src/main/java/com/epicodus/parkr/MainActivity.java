@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        createSignInProgressDialog();
+//        createSignInProgressDialog();
         mAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
 
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent signUpIntent = new Intent (MainActivity.this, SignUpActivity.class);
             startActivity(signUpIntent);
         }else if(v == mLoginButton){
+//            mSignInProgressDialog.show();
             login();
             finish();
         }
@@ -71,17 +72,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!isNotEmpty(email) || !isNotEmpty(pass)) return;
 
-        mSignInProgressDialog.show();
         mAuth.signInWithEmailAndPassword(email, mPasswordInput.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                    mSignInProgressDialog.dismiss();
+
                         if (task.isSuccessful()) {
+//                            mSignInProgressDialog.dismiss();
                             Intent loginIntent = new Intent (MainActivity.this, AccountActivity.class);
                             startActivity(loginIntent);
+                            finish();
                         } else if (!task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
                 });

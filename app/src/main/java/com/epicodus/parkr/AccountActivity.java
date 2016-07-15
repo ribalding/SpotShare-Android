@@ -43,7 +43,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("test", dataSnapshot.child("email").toString());
+                String userName = dataSnapshot.child("fullName").getValue().toString();
+                 mUserNameDisplay.setText(userName);
             }
 
             @Override
