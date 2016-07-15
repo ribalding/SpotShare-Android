@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private ProgressDialog mSignInProgressDialog;
 
     @Bind(R.id.headline)TextView mHeadline;
@@ -51,18 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignUpButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
 
-            mAuthListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    if (user != null) {
-                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            };
     }
 
     @Override
@@ -97,20 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     private void createSignInProgressDialog() {

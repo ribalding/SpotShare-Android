@@ -29,7 +29,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressDialog mAuthProgressDialog;
     private DatabaseReference mSpecificUserReference;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private String name;
     private String email;
     String password;
@@ -46,7 +45,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
-        createAuthStateListener();
         createAuthProgressDialog();
 
         super.onCreate(savedInstanceState);
@@ -87,6 +85,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             mAuthProgressDialog.dismiss();
+                            String uid = task.getResult().getUser().getUid();
+                            mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+                            User newUser = new User(uid, name, password, email);
+                            saveUserToFirebase(newUser);
+
+
+                            Intent intent = new Intent(SignUpActivity.this, AccountActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             mAuthProgressDialog.dismiss();
@@ -96,40 +104,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }
 
-    private void createAuthStateListener() {
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    String uid = user.getUid();
-                    mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
-                    User newUser = new User(uid, name, password, email);
-                    saveUserToFirebase(newUser);
 
-
-                    Intent intent = new Intent(SignUpActivity.this, AccountActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
 
     private boolean isValidEmail(String email) {
         boolean isGoodEmail =
