@@ -28,6 +28,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.headline) TextView mHeadline;
     @Bind(R.id.logOutButton) Button mLogOutButton;
     @Bind(R.id.postSpotButton) Button mPostSpotButton;
+    @Bind(R.id.findSpotsButton) Button mFindSpotsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
         mPostSpotButton.setOnClickListener(this);
         mLogOutButton.setOnClickListener(this);
+        mFindSpotsButton.setOnClickListener(this);
     }
 
     private void logout() {
@@ -81,6 +83,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         } else if (view == mPostSpotButton){
             Intent postSpotIntent = new Intent (AccountActivity.this, NewSpotActivity.class);
             startActivity(postSpotIntent);
+        } else if (view == mFindSpotsButton){
+            Intent findSpotsIntent = new Intent(AccountActivity.this, FindSpotsActivity.class);
+            startActivity(findSpotsIntent);
         }
     }
 }

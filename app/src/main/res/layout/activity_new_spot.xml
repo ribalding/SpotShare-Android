@@ -27,20 +27,22 @@
         android:id="@+id/spotDescriptionEditText"
         android:hint="Description"
         android:background="#eaeaea"
+        android:layout_margin="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/addSpotButton"
-        android:layout_below="@+id/endDate" />
+        android:layout_below="@+id/endDate"
+        android:paddingLeft="10dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Spot Here"
+        android:text="Add Spot"
         android:id="@+id/addSpotButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,7 +61,8 @@
         android:layout_toLeftOf="@+id/startTime"
         android:layout_alignRight="@+id/endDate"
         android:layout_alignEnd="@+id/endDate"
-        android:textColorHint="#eaeaea" />
+        android:textColorHint="#eaeaea"
+        android:textColor="#eaeaea" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -77,7 +80,8 @@
         android:textAlignment="center"
         android:layout_toRightOf="@+id/endDate"
         android:layout_toEndOf="@+id/endDate"
-        android:textColorHint="#eaeaea" />
+        android:textColorHint="#eaeaea"
+        android:textColor="#eaeaea" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -93,7 +97,8 @@
         android:layout_below="@+id/startDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColorHint="#eaeaea" />
+        android:textColorHint="#eaeaea"
+        android:textColor="#eaeaea" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -109,6 +114,7 @@
         android:layout_alignBottom="@+id/endDate"
         android:layout_toRightOf="@+id/endDate"
         android:layout_toEndOf="@+id/endDate"
-        android:textColorHint="#eaeaea" />
+        android:textColorHint="#eaeaea"
+        android:textColor="#eaeaea" />
 
 </RelativeLayout>
