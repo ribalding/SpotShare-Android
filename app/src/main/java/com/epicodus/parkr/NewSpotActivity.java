@@ -206,7 +206,6 @@ public class NewSpotActivity extends FragmentActivity
     public void addSpot(String ownerId, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
         Spot newSpot = new Spot(ownerId, description, spot, startDate, startTime, endDate, endTime);
         DatabaseReference pushRef = mSpotReference.push();
-        String pushId = pushRef.getKey();
         pushRef.setValue(newSpot);
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
     }

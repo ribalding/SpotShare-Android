@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +28,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.ButterKnife;
 
@@ -72,6 +76,25 @@ public class FindSpotsActivity extends FragmentActivity implements
                     .addApi(LocationServices.API)
                     .addApi(AppIndex.API).build();
         }
+
+        mSpotReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
+                    Log.d("test",spotSnapshot.getValue().toString());
+                    Double latitude = Double.parseDouble(spotSnapshot.child("latLng").child("latitude").getValue().toString());
+                    Double longitude = Double.parseDouble(spotSnapshot.child("latLng").child("longitude").getValue().toString());
+                    String description = spotSnapshot.child("description").getValue().toString();
+                    LatLng newLatLng = new LatLng(latitude, longitude);
+                    mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
