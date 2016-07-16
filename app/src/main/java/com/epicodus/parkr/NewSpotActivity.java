@@ -1,6 +1,7 @@
 package com.epicodus.parkr;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -208,6 +209,8 @@ public class NewSpotActivity extends FragmentActivity
         DatabaseReference pushRef = mSpotReference.push();
         pushRef.setValue(newSpot);
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
+        Intent accountIntent = new Intent(NewSpotActivity.this, AccountActivity.class);
+        startActivity(accountIntent);
     }
 
 

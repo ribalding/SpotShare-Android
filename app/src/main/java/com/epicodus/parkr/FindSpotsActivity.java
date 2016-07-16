@@ -81,7 +81,6 @@ public class FindSpotsActivity extends FragmentActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
-                    Log.d("test",spotSnapshot.getValue().toString());
                     Double latitude = Double.parseDouble(spotSnapshot.child("latLng").child("latitude").getValue().toString());
                     Double longitude = Double.parseDouble(spotSnapshot.child("latLng").child("longitude").getValue().toString());
                     String description = spotSnapshot.child("description").getValue().toString();
