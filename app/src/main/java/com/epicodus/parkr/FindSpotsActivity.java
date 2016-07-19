@@ -101,12 +101,12 @@ public class FindSpotsActivity extends FragmentActivity implements
                     Double longitude = Double.parseDouble(spotSnapshot.child("latLng").child("longitude").getValue().toString());
                     String description = spotSnapshot.child("description").getValue().toString();
                     LatLng newLatLng = new LatLng(latitude, longitude);
-                    String key = spotSnapshot.getKey();
+                    currentSpot = spotSnapshot.getKey();
                     Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
                     if(isRented == true) {
-                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key));
+                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
                     } else if (isRented == false){
-                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));;
+                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));;
                     }
                 }
             }
@@ -227,8 +227,8 @@ public class FindSpotsActivity extends FragmentActivity implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        String snippet = marker.getSnippet();
-        mSpotReference.child(snippet).addValueEventListener(new ValueEventListener(){
+
+        mSpotReference.child(currentSpot).addValueEventListener(new ValueEventListener(){
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
