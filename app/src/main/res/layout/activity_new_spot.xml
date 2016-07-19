@@ -21,18 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spotDescriptionEditText"
-        android:hint="Description"
-        android:background="#eaeaea"
-        android:layout_margin="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/addSpotButton"
-        android:layout_below="@+id/endDate"
-        android:paddingLeft="10dp" />
+
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -116,5 +105,29 @@
         android:layout_toEndOf="@+id/endDate"
         android:textColorHint="#eaeaea"
         android:textColor="#eaeaea" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:hint="Address"
+        android:background="#eaeaea"
+        android:paddingLeft="10dp"
+        android:layout_alignRight="@+id/endTime"
+        android:layout_alignEnd="@+id/endTime"
+        android:layout_below="@+id/endDate"
+        android:minLines="2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spotDescriptionEditText"
+        android:hint="Description"
+        android:background="#eaeaea"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/address"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:minLines="5" />
 
 </RelativeLayout>

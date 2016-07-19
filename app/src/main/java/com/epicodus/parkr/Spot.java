@@ -15,8 +15,9 @@ public class Spot {
     private boolean isCurrentlyRented;
     private String description;
     private LatLng latLng;
+    private String address;
 
-    public Spot(String ownerID, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
+    public Spot(String ownerID, String address, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
         this.ownerID = ownerID;
         this.description = description;
         this.latLng = latLng;
@@ -25,12 +26,15 @@ public class Spot {
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.address = address;
     }
 
 
     //Getters
 
     public String getOwnerID(){ return this.ownerID; }
+
+    public String getAddress(){ return this.address; }
 
     public String getStartDate() { return this.startDate; }
 
@@ -62,6 +66,8 @@ public class Spot {
     public void setOwnerID(String ownerID) {
         this.ownerID = ownerID;
     }
+
+    public void setAddress(String address){ this.address = address; }
 
     public void setRenterID(String renterID) {
         this.renterID = renterID;

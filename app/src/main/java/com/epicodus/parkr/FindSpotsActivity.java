@@ -26,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +43,8 @@ public class FindSpotsActivity extends FragmentActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener {
+        View.OnClickListener,
+        GoogleMap.OnMarkerClickListener{
 
     private FirebaseAuth mAuth;
     private String uid;
@@ -85,7 +87,8 @@ public class FindSpotsActivity extends FragmentActivity implements
                     Double longitude = Double.parseDouble(spotSnapshot.child("latLng").child("longitude").getValue().toString());
                     String description = spotSnapshot.child("description").getValue().toString();
                     LatLng newLatLng = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
+                    String key = spotSnapshot.getKey();
+                    mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key));
                 }
             }
 
@@ -106,8 +109,11 @@ public class FindSpotsActivity extends FragmentActivity implements
 
             @Override
             public void onMapClick(LatLng latLng) {
-                }
+            }
+
         });
+
+        mMap.setOnMarkerClickListener(this);
 
     }
 
@@ -193,5 +199,27 @@ public class FindSpotsActivity extends FragmentActivity implements
         );
         AppIndex.AppIndexApi.end(mGoogleApiClient, viewAction);
         mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        String snippet = marker.getSnippet();
+        mSpotReference.child(snippet).addValueEventListener(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String description = dataSnapshot.child("description").getValue().toString();
+                String startTime = dataSnapshot.child("startTime").getValue().toString();
+                String startDate = dataSnapshot.child("startDate").getValue().toString();
+                String endTime = dataSnapshot.child("endTime").getValue().toString();
+                String endDate = dataSnapshot.child("endDate").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return false;
     }
 }

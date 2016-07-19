@@ -61,6 +61,7 @@ public class NewSpotActivity extends FragmentActivity
     @Bind(R.id.endDate) EditText mEndDate;
     @Bind(R.id.startTime) EditText mStartTime;
     @Bind(R.id.endTime) EditText mEndTime;
+    @Bind(R.id.address) EditText mAddress;
     @Bind(R.id.spotDescriptionEditText) EditText mSpotDescriptionEditText;
 
 
@@ -200,12 +201,13 @@ public class NewSpotActivity extends FragmentActivity
             String startTime = mStartTime.getText().toString();
             String endDate = mEndDate.getText().toString();
             String endTime = mEndTime.getText().toString();
-            addSpot(uid, description, position, startDate, startTime, endDate, endTime);
+            String address = mAddress.getText().toString();
+            addSpot(uid, address, description, position, startDate, startTime, endDate, endTime);
         }
     }
 
-    public void addSpot(String ownerId, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
-        Spot newSpot = new Spot(ownerId, description, spot, startDate, startTime, endDate, endTime);
+    public void addSpot(String ownerId, String address, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
+        Spot newSpot = new Spot(ownerId, address, description, spot, startDate, startTime, endDate, endTime);
         DatabaseReference pushRef = mSpotReference.push();
         pushRef.setValue(newSpot);
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();

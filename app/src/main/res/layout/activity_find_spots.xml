@@ -25,4 +25,127 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/addressDisplay"
+        android:layout_marginTop="37dp"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/findSpotsMap"
+        android:layout_alignLeft="@+id/descriptionDisplay"
+        android:layout_alignStart="@+id/descriptionDisplay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:id="@+id/addressTitle"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_alignTop="@+id/addressDisplay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:id="@+id/descriptionTitle"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:textStyle="bold"
+        android:layout_below="@+id/addressTitle"
+        android:layout_alignLeft="@+id/addressTitle"
+        android:layout_alignStart="@+id/addressTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/descriptionDisplay"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/addressDisplay"
+        android:layout_toRightOf="@+id/availableTitle"
+        android:layout_toEndOf="@+id/availableTitle"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available:"
+        android:id="@+id/availableTitle"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:textStyle="bold"
+        android:layout_below="@+id/descriptionTitle"
+        android:layout_alignLeft="@+id/descriptionTitle"
+        android:layout_alignStart="@+id/descriptionTitle"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/startDateDisplay"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/availableTitle"
+        android:layout_alignRight="@+id/descriptionTitle"
+        android:layout_alignEnd="@+id/descriptionTitle"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/startTimeDisplay"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/startDateDisplay"
+        android:layout_alignLeft="@+id/startDateDisplay"
+        android:layout_alignStart="@+id/startDateDisplay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/endDateDisplay"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_alignTop="@+id/startDateDisplay"
+        android:layout_alignLeft="@+id/descriptionDisplay"
+        android:layout_alignStart="@+id/descriptionDisplay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/endTimeDisplay"
+        android:textSize="15dp"
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/endDateDisplay"
+        android:layout_alignLeft="@+id/endDateDisplay"
+        android:layout_alignStart="@+id/endDateDisplay" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Spot"
+        android:id="@+id/button"
+        android:layout_below="@+id/endDateDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#617f61"
+        android:textColor="#eaeaea"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+
 </RelativeLayout>
