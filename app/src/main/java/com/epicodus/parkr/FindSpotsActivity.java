@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -35,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FindSpotsActivity extends FragmentActivity implements
@@ -55,6 +57,13 @@ public class FindSpotsActivity extends FragmentActivity implements
     private boolean mPermissionDenied = false;
     private Location mLastLocation;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    @Bind(R.id.addressDisplay) TextView mAddressDisplay;
+    @Bind(R.id.descriptionDisplay) TextView mDescriptionDisplay;
+    @Bind(R.id.startDateDisplay) TextView mStartDateDisplay;
+    @Bind(R.id.startTimeDisplay) TextView mStartTimeDisplay;
+    @Bind(R.id.endDateDisplay) TextView mEndDateDisplay;
+    @Bind(R.id.endTimeDisplay) TextView mEndTimeDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +222,14 @@ public class FindSpotsActivity extends FragmentActivity implements
                 String startDate = dataSnapshot.child("startDate").getValue().toString();
                 String endTime = dataSnapshot.child("endTime").getValue().toString();
                 String endDate = dataSnapshot.child("endDate").getValue().toString();
+                String address = dataSnapshot.child("address").getValue().toString();
+                mAddressDisplay.setText(address);
+                mDescriptionDisplay.setText(description);
+                mStartDateDisplay.setText(startDate);
+                mStartTimeDisplay.setText(startTime);
+                mEndDateDisplay.setText(endDate);
+                mEndTimeDisplay.setText(endTime);
+
             }
 
             @Override
