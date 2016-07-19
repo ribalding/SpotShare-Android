@@ -26,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -57,6 +58,7 @@ public class FindSpotsActivity extends FragmentActivity implements
     private boolean mPermissionDenied = false;
     private Location mLastLocation;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private String currentSpot;
 
     @Bind(R.id.addressDisplay) TextView mAddressDisplay;
     @Bind(R.id.descriptionDisplay) TextView mDescriptionDisplay;
@@ -64,6 +66,7 @@ public class FindSpotsActivity extends FragmentActivity implements
     @Bind(R.id.startTimeDisplay) TextView mStartTimeDisplay;
     @Bind(R.id.endDateDisplay) TextView mEndDateDisplay;
     @Bind(R.id.endTimeDisplay) TextView mEndTimeDisplay;
+    @Bind(R.id.getSpotButton) Button mGetSpotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,8 @@ public class FindSpotsActivity extends FragmentActivity implements
         setContentView(R.layout.activity_find_spots);
 
         ButterKnife.bind(this);
+
+        mGetSpotButton.setOnClickListener(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.findSpotsMap);
@@ -97,7 +102,12 @@ public class FindSpotsActivity extends FragmentActivity implements
                     String description = spotSnapshot.child("description").getValue().toString();
                     LatLng newLatLng = new LatLng(latitude, longitude);
                     String key = spotSnapshot.getKey();
-                    mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key));
+                    Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
+                    if(isRented == true) {
+                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key));
+                    } else if (isRented == false){
+                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).snippet(key).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));;
+                    }
                 }
             }
 
@@ -174,10 +184,6 @@ public class FindSpotsActivity extends FragmentActivity implements
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -211,6 +217,15 @@ public class FindSpotsActivity extends FragmentActivity implements
     }
 
     @Override
+    public void onClick(View view) {
+
+        if (view == mGetSpotButton){
+            mSpotReference.child(currentSpot).child("renterID").setValue(uid);
+            mSpotReference.child(currentSpot).child("isCurrentlyRented").setValue(true);
+        }
+    }
+
+    @Override
     public boolean onMarkerClick(Marker marker) {
         String snippet = marker.getSnippet();
         mSpotReference.child(snippet).addValueEventListener(new ValueEventListener(){
@@ -229,6 +244,7 @@ public class FindSpotsActivity extends FragmentActivity implements
                 mStartTimeDisplay.setText(startTime);
                 mEndDateDisplay.setText(endDate);
                 mEndTimeDisplay.setText(endTime);
+                currentSpot = dataSnapshot.getKey();
 
             }
 

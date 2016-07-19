@@ -139,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get Spot"
-        android:id="@+id/button"
+        android:id="@+id/getSpotButton"
         android:layout_below="@+id/endDateDisplay"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
