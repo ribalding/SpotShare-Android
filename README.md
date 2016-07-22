@@ -4,7 +4,7 @@
 
 ##Description
 
-This is an andorid App which gives people the ability to post parking spots that they own for rent during specified hours, and for others to seek spots for rent. 
+This is an Android App which gives people the ability to post parking spots that they own for rent during specified hours, and for others to seek spots for rent. 
 
 ##Setup 
 
