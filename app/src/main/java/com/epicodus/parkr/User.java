@@ -10,7 +10,8 @@ public class User {
     private String email;
     private String full_name;
     private String firebaseAuthID;
-    private ArrayList<Spot> spots;
+    private ArrayList<Spot> rentedSpots;
+    private ArrayList<Spot> ownedSpots;
 
 
     public User(){}
@@ -23,6 +24,7 @@ public class User {
     }
 
 
+
     public String getPassword(){return this.password;}
 
     public String getEmail(){
@@ -33,7 +35,9 @@ public class User {
         return this.full_name;
     }
 
-    public ArrayList<Spot> getSpots(){ return this.spots; }
+    public ArrayList<Spot> getRentedSpots(){ return this.rentedSpots; }
+
+    public ArrayList<Spot> getOwnedSpots(){ return this.ownedSpots; }
 
     public String getFirebaseAuthID(){return this.firebaseAuthID;}
 
