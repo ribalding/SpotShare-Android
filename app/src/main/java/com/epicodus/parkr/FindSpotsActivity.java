@@ -103,6 +103,9 @@ public class FindSpotsActivity extends FragmentActivity implements
                     LatLng newLatLng = new LatLng(latitude, longitude);
                     currentSpot = spotSnapshot.getKey();
                     Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
+                    String ownerID = spotSnapshot.child("ownerID").getValue().toString();
+                    String renterID = spotSnapshot.child("renterID").getValue().toString();
+                    Boolean userOwnedSpot = ownerID == renterID;
                     if(isRented == true) {
                         mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
                     } else if (isRented == false){
