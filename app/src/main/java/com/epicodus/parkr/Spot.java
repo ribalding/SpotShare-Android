@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by Guest on 7/12/16.
  */
 public class Spot {
+    private String spotID;
     private String ownerID;
     private String renterID;
     private String startDate;
@@ -17,7 +18,8 @@ public class Spot {
     private LatLng latLng;
     private String address;
 
-    public Spot(String ownerID, String address, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
+    public Spot(String spotID, String ownerID, String address, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
+        this.spotID = spotID;
         this.ownerID = ownerID;
         this.description = description;
         this.latLng = latLng;
@@ -31,6 +33,9 @@ public class Spot {
 
 
     //Getters
+
+
+    public String getSpotID() {return spotID;}
 
     public String getOwnerID(){ return this.ownerID; }
 
@@ -62,6 +67,9 @@ public class Spot {
 
 
     //Setters
+
+
+    public void setSpotID(String spotID) { this.spotID = spotID; }
 
     public void setOwnerID(String ownerID) {
         this.ownerID = ownerID;

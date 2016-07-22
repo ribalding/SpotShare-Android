@@ -222,6 +222,8 @@ public class FindSpotsActivity extends FragmentActivity implements
         if (view == mGetSpotButton){
             mSpotReference.child(currentSpot).child("renterID").setValue(uid);
             mSpotReference.child(currentSpot).child("isCurrentlyRented").setValue(true);
+            DatabaseReference pushRef = mUserReference.child("spots").push();
+
         }
     }
 
