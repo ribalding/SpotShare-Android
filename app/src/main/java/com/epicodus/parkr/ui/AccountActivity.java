@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.epicodus.parkr.Constants;
 import com.epicodus.parkr.R;
+import com.epicodus.parkr.adapters.RentedSpotsAdapter;
 import com.epicodus.parkr.models.Spot;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +33,10 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     private String uid;
     private DatabaseReference mSpecificUserReference;
     private DatabaseReference mAllSpotsReference;
+    private RentedSpotsAdapter mAdapter;
 
 
+    @Bind(R.id.rentedSpotRecyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.userNameDisplay) TextView mUserNameDisplay;
     @Bind(R.id.headline) TextView mHeadline;
     @Bind(R.id.logOutButton) Button mLogOutButton;
@@ -66,14 +71,14 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             ArrayList<String> spotKeys = new ArrayList<>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
-                    String spotKey = spotSnapshot.getValue().toString();
+                for(DataSnapshot spotKeySnapshot : dataSnapshot.getChildren()){
+                    String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);
                 }
                 mAllSpotsReference.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot innerDataSnapshot) {
-                        for(DataSnapshot eachSpotSnapshot : innerDataSnapshot.getChildren()){
+                    public void onDataChange(DataSnapshot AllSpotsDataSnapshot) {
+                        for(DataSnapshot eachSpotSnapshot : AllSpotsDataSnapshot.getChildren()){
                             String compareSpotId = eachSpotSnapshot.getKey();
                             for(String eachSpotKey : spotKeys)
                                 if(compareSpotId.equals(eachSpotKey)){
@@ -91,7 +96,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                                     mSpots.add(newSpot);
                                 }
                         }
-
+                        mAdapter = new RentedSpotsAdapter(getApplicationContext(), mSpots);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AccountActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
 
                     @Override

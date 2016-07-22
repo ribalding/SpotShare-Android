@@ -48,7 +48,8 @@
         android:layout_below="@+id/userNameDisplay"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/logOutButton" />
+        android:layout_above="@+id/logOutButton"
+        android:id="@+id/rentedSpotRecyclerView" />
 
     <Button
         android:layout_width="wrap_content"
