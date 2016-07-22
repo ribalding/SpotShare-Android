@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Ryan on 7/22/2016.
- */
+
 public class RentedSpotsAdapter extends RecyclerView.Adapter<RentedSpotsAdapter.RentedSpotViewHolder> {
     private ArrayList<Spot> mSpots;
     private Context mContext;

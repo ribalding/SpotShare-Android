@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="10dp">
 
 
     <TextView
@@ -9,17 +14,21 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/rentedSpotAddressDisplay"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textColor="#617f61"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/rentedSpotEndDateDisplay" />
+        android:id="@+id/rentedSpotEndDateDisplay"
+        android:textColor="#617f61" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/rentedSpotEndTimeDisplay" />
+        android:id="@+id/rentedSpotEndTimeDisplay"
+        android:textColor="#617f61" />
 </LinearLayout>

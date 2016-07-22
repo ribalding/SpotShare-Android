@@ -105,7 +105,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        finish();
                     }
                 });
 
@@ -113,7 +113,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                finish();
             }
         });
 
