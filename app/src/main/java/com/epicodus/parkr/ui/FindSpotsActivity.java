@@ -1,6 +1,7 @@
-package com.epicodus.parkr;
+package com.epicodus.parkr.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -10,13 +11,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.parkr.Constants;
+import com.epicodus.parkr.PermissionUtils;
+import com.epicodus.parkr.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
@@ -103,9 +105,7 @@ public class FindSpotsActivity extends FragmentActivity implements
                     LatLng newLatLng = new LatLng(latitude, longitude);
                     currentSpot = spotSnapshot.getKey();
                     Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
-                    String ownerID = spotSnapshot.child("ownerID").getValue().toString();
-                    String renterID = spotSnapshot.child("renterID").getValue().toString();
-                    Boolean userOwnedSpot = ownerID == renterID;
+
                     if(isRented == true) {
                         mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
                     } else if (isRented == false){
@@ -227,6 +227,9 @@ public class FindSpotsActivity extends FragmentActivity implements
             mSpotReference.child(currentSpot).child("isCurrentlyRented").setValue(true);
             DatabaseReference newSpotRef = mUserReference.child("rentedSpots").child(currentSpot);
             newSpotRef.setValue(currentSpot);
+            Toast.makeText(FindSpotsActivity.this, "Spot Added to Your Rented Spots", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(FindSpotsActivity.this, AccountActivity.class);
+            startActivity(intent);
 
         }
     }

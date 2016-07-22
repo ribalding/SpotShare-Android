@@ -11,22 +11,22 @@
         android:label="SpotShare"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".ui.SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.parkr.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".AccountActivity">
+        <activity android:name=".ui.AccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.parkr.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
 
         <meta-data
@@ -34,14 +34,14 @@
             android:value="AIzaSyD5vnv7KtcGz1SzPPw-csqUhxlDrJMQXAM" />
 
         <activity
-            android:name=".NewSpotActivity"
+            android:name=".ui.NewSpotActivity"
             android:label="@string/title_activity_maps"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".FindSpotsActivity">
+        <activity android:name=".ui.FindSpotsActivity">
 
         </activity>
 

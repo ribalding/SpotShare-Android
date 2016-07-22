@@ -1,4 +1,4 @@
-package com.epicodus.parkr;
+package com.epicodus.parkr.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.epicodus.parkr.Constants;
+import com.epicodus.parkr.PermissionUtils;
+import com.epicodus.parkr.R;
+import com.epicodus.parkr.models.Spot;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;

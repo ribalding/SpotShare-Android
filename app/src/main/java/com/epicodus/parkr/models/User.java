@@ -1,4 +1,6 @@
-package com.epicodus.parkr;
+package com.epicodus.parkr.models;
+
+import com.epicodus.parkr.models.Spot;
 
 import java.util.ArrayList;
 

@@ -26,6 +26,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 
+import com.epicodus.parkr.ui.FindSpotsActivity;
+import com.epicodus.parkr.ui.NewSpotActivity;
+
 /**
  * Utility class for access to runtime permissions.
  */
@@ -49,7 +52,7 @@ public abstract class PermissionUtils {
     }
 
     public static void requestFindSpotsPermission(FindSpotsActivity activity, int requestId,
-                                         String permission, boolean finishActivity) {
+                                                  String permission, boolean finishActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
             PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)

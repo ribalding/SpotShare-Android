@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.parkr.AccountActivity"
+    tools:context=".ui.AccountActivity"
     android:background="@color/abc_search_url_text_normal">
 
     <TextView
@@ -41,6 +41,14 @@
         android:layout_centerHorizontal="true"
         android:textSize="50sp"
         android:textColor="#eaeaea" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/userNameDisplay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/logOutButton" />
 
     <Button
         android:layout_width="wrap_content"

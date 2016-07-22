@@ -1,4 +1,4 @@
-package com.epicodus.parkr;
+package com.epicodus.parkr.models;
 
 import com.google.android.gms.maps.model.LatLng;
 

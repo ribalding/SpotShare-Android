@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.parkr.SignUpActivity"
+    tools:context=".ui.SignUpActivity"
     android:background="@color/abc_search_url_text_normal">
 
     <TextView
