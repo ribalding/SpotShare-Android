@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void login(){
 
-        final String email = mEmailInput.getText().toString();
-        final String pass = mPasswordInput.getText().toString();
+        final String email = mEmailInput.getText().toString().trim();
+        final String pass = mPasswordInput.getText().toString().trim();
 
         if(!isNotEmpty(email) || !isNotEmpty(pass)) return;
 
