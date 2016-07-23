@@ -264,4 +264,6 @@ public class FindSpotsActivity extends FragmentActivity implements
         });
         return false;
     }
+
+
 }

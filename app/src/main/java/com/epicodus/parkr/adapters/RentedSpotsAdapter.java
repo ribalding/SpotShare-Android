@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 
 public class RentedSpotsAdapter extends RecyclerView.Adapter<RentedSpotsAdapter.RentedSpotViewHolder> {
-    private ArrayList<Spot> mSpots;
+    private ArrayList<Spot> mSpots = new ArrayList<>();
     private Context mContext;
 
     public RentedSpotsAdapter(Context context, ArrayList<Spot> spots){

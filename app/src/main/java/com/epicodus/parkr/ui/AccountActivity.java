@@ -51,27 +51,17 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
         mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child("spots");
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account);
 
         mSpecificUserReference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String userName = dataSnapshot.child("fullName").getValue().toString();
-                 mUserNameDisplay.setText(userName);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mSpecificUserReference.child("rentedSpots").addValueEventListener(new ValueEventListener() {
             ArrayList<Spot> mSpots = new ArrayList<>();
             ArrayList<String> spotKeys = new ArrayList<>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot spotKeySnapshot : dataSnapshot.getChildren()){
+                String userName = dataSnapshot.child("fullName").getValue().toString();
+                mUserNameDisplay.setText(userName);
+                for(DataSnapshot spotKeySnapshot : dataSnapshot.child("rentedSpots").getChildren()){
                     String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);
                 }
@@ -118,8 +108,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
 
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -154,5 +142,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(findSpotsIntent);
         }
     }
+
+
+        @Override
+        public void onSaveInstanceState(Bundle saveInstanceState){
+
+        }
 
 }
