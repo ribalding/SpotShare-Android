@@ -57,10 +57,12 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         mSpecificUserReference.addValueEventListener(new ValueEventListener() {
             ArrayList<Spot> mSpots = new ArrayList<>();
             ArrayList<String> spotKeys = new ArrayList<>();
+            Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userName = dataSnapshot.child("fullName").getValue().toString();
                 mUserNameDisplay.setText(userName);
+                mUserNameDisplay.setTypeface(newFont);
                 for(DataSnapshot spotKeySnapshot : dataSnapshot.child("rentedSpots").getChildren()){
                     String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);

@@ -3,6 +3,7 @@ package com.epicodus.parkr.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epicodus.parkr.Constants;
@@ -71,6 +73,7 @@ public class NewSpotActivity extends FragmentActivity
     @Bind(R.id.endTime) EditText mEndTime;
     @Bind(R.id.address) EditText mAddress;
     @Bind(R.id.spotDescriptionEditText) EditText mSpotDescriptionEditText;
+    @Bind(R.id.newSpotHeader) TextView mNewSpotHeader;
 
 
 
@@ -85,6 +88,10 @@ public class NewSpotActivity extends FragmentActivity
         setContentView(R.layout.activity_new_spot);
 
         ButterKnife.bind(this);
+
+        Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        mNewSpotHeader.setTypeface(newFont);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

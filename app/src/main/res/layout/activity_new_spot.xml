@@ -14,12 +14,14 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context=".ui.NewSpotActivity"
         android:layout_width="191dp"
-        android:layout_height="206dp"
+        android:layout_height="230dp"
         android:layout_weight="0.28"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/startDate"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/startTime"
+        android:layout_alignEnd="@+id/startTime"
+        android:layout_below="@+id/newSpotDirections" />
 
 
 
@@ -39,19 +41,16 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/startDate"
-        android:layout_below="@+id/map"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="#617f61"
         android:hint="Start Date"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textAlignment="center"
-        android:layout_toLeftOf="@+id/startTime"
-        android:layout_alignRight="@+id/endDate"
-        android:layout_alignEnd="@+id/endDate"
         android:textColorHint="#eaeaea"
-        android:textColor="#eaeaea" />
+        android:textColor="#eaeaea"
+        android:layout_above="@+id/endDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -63,14 +62,12 @@
         android:hint="Start Time"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:layout_below="@+id/map"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:textAlignment="center"
-        android:layout_toRightOf="@+id/endDate"
-        android:layout_toEndOf="@+id/endDate"
         android:textColorHint="#eaeaea"
-        android:textColor="#eaeaea" />
+        android:textColor="#eaeaea"
+        android:layout_alignTop="@+id/startDate"
+        android:layout_toRightOf="@+id/startDate"
+        android:layout_toEndOf="@+id/startDate" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -83,11 +80,11 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textAlignment="center"
-        android:layout_below="@+id/startDate"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColorHint="#eaeaea"
-        android:textColor="#eaeaea" />
+        android:textColor="#eaeaea"
+        android:layout_alignTop="@+id/endTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -100,11 +97,13 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textAlignment="center"
-        android:layout_alignBottom="@+id/endDate"
-        android:layout_toRightOf="@+id/endDate"
-        android:layout_toEndOf="@+id/endDate"
         android:textColorHint="#eaeaea"
-        android:textColor="#eaeaea" />
+        android:textColor="#eaeaea"
+        android:layout_above="@+id/address"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/endDate"
+        android:layout_toEndOf="@+id/endDate" />
 
     <EditText
         android:layout_width="match_parent"
@@ -113,10 +112,10 @@
         android:hint="Address"
         android:background="#eaeaea"
         android:paddingLeft="10dp"
-        android:layout_alignRight="@+id/endTime"
-        android:layout_alignEnd="@+id/endTime"
-        android:layout_below="@+id/endDate"
-        android:minLines="2" />
+        android:minLines="1"
+        android:layout_above="@+id/spotDescriptionEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -125,9 +124,40 @@
         android:hint="Description"
         android:background="#eaeaea"
         android:paddingLeft="10dp"
-        android:layout_below="@+id/address"
+        android:minLines="3"
+        android:layout_above="@+id/addSpotButton"
+        android:layout_alignRight="@+id/addSpotButton"
+        android:layout_alignEnd="@+id/addSpotButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Spot Share"
+        android:id="@+id/newSpotHeader"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:minLines="5" />
+        android:textColor="#eaeaea"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Use this page to post a new spot that can be rented.  Tap on the map to set the location of your spot."
+        android:id="@+id/newSpotDirections"
+        android:layout_below="@+id/newSpotHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/startTime"
+        android:layout_alignEnd="@+id/startTime"
+        android:textAlignment="center" />
 
 </RelativeLayout>

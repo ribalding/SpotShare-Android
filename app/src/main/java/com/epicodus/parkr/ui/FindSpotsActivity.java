@@ -70,6 +70,7 @@ public class FindSpotsActivity extends FragmentActivity implements
     @Bind(R.id.endTimeDisplay) TextView mEndTimeDisplay;
     @Bind(R.id.getSpotButton) Button mGetSpotButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
