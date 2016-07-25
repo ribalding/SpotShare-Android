@@ -72,7 +72,8 @@
         android:padding="10sp"
         android:layout_above="@+id/loginButton"
         android:layout_alignLeft="@+id/emailInput"
-        android:layout_alignStart="@+id/emailInput" />
+        android:layout_alignStart="@+id/emailInput"
+        android:password="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

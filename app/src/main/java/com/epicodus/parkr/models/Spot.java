@@ -2,9 +2,13 @@ package com.epicodus.parkr.models;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Guest on 7/12/16.
  */
+
+@Parcel
 public class Spot {
     private String spotID;
     private String ownerID;
@@ -17,6 +21,8 @@ public class Spot {
     private String description;
     private LatLng latLng;
     private String address;
+
+    public Spot(){}
 
     public Spot(String spotID, String ownerID, String address, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
         this.spotID = spotID;

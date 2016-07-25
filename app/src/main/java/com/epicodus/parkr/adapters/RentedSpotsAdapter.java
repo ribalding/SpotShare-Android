@@ -1,6 +1,7 @@
 package com.epicodus.parkr.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.epicodus.parkr.R;
 import com.epicodus.parkr.models.Spot;
+import com.epicodus.parkr.ui.RentedSpotDetailActivity;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -42,7 +46,7 @@ public class RentedSpotsAdapter extends RecyclerView.Adapter<RentedSpotsAdapter.
         return mSpots.size();
     }
 
-    public class RentedSpotViewHolder extends RecyclerView.ViewHolder {
+    public class RentedSpotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.rentedSpotAddressDisplay) TextView mRentedSpotAddressDisplay;
         @Bind(R.id.rentedSpotEndDateDisplay) TextView mRentedSpotEndDateDisplay;
@@ -54,12 +58,22 @@ public class RentedSpotsAdapter extends RecyclerView.Adapter<RentedSpotsAdapter.
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            itemView.setOnClickListener(this);
         }
 
         public void bindSpot(Spot spot){
             mRentedSpotAddressDisplay.setText(spot.getAddress());
             mRentedSpotEndDateDisplay.setText(spot.getEndDate());
             mRentedSpotEndTimeDisplay.setText(spot.getEndTime());
+        }
+
+        @Override
+        public void onClick(View view) {
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(mContext, RentedSpotDetailActivity.class);
+            intent.putExtra("position", itemPosition);
+            intent.putExtra("spots", Parcels.wrap(mSpots));
+            mContext.startActivity(intent);
         }
     }
 }
