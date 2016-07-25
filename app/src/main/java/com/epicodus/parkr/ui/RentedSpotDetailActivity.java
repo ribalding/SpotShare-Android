@@ -2,6 +2,7 @@ package com.epicodus.parkr.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.epicodus.parkr.R;
@@ -22,6 +23,7 @@ public class RentedSpotDetailActivity extends AppCompatActivity {
     @Bind(R.id.spotDetailStartTime) TextView mSpotDetailStartTime;
     @Bind(R.id.spotDetailEndDate) TextView mSpotDetailEndDate;
     @Bind(R.id.spotDetailEndTime) TextView mSpotDetailEndTime;
+    @Bind(R.id.removeSpotButton) Button mRemoveSpotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
