@@ -70,6 +70,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 mAllSpotsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot AllSpotsDataSnapshot) {
+                        mSpots.clear();
                         for(DataSnapshot eachSpotSnapshot : AllSpotsDataSnapshot.getChildren()){
                             String compareSpotId = eachSpotSnapshot.getKey();
                             for(String eachSpotKey : spotKeys)
