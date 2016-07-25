@@ -2,11 +2,15 @@ package com.epicodus.parkr.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.epicodus.parkr.R;
 import com.epicodus.parkr.models.Spot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -15,8 +19,12 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RentedSpotDetailActivity extends AppCompatActivity {
+public class RentedSpotDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserReference;
+    private String uid;
     private ArrayList<Spot> mSpots = new ArrayList<>();
+    private String spotID;
     @Bind(R.id.spotDetailAddress) TextView mSpotDetailAddress;
     @Bind(R.id.spotDetailDescription) TextView mSpotDetailDescription;
     @Bind(R.id.spotDetailStartDate) TextView mSpotDetailStartDate;
@@ -27,9 +35,14 @@ public class RentedSpotDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+        mUserReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rented_spot_detail);
         ButterKnife.bind(this);
+        mRemoveSpotButton.setOnClickListener(this);
 
         mSpots = Parcels.unwrap(getIntent().getParcelableExtra("spots"));
         int startingPosition = getIntent().getIntExtra("position", 0);
@@ -41,6 +54,14 @@ public class RentedSpotDetailActivity extends AppCompatActivity {
         mSpotDetailStartTime.setText("Start Time: " + currentSpot.getStartTime());
         mSpotDetailEndDate.setText("End Date: " + currentSpot.getEndDate());
         mSpotDetailEndTime.setText("End Time " + currentSpot.getEndTime());
+        spotID = currentSpot.getSpotID();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == mRemoveSpotButton){
+            mUserReference.child("rentedSpots").child(spotID).removeValue();
+        }
     }
 }
