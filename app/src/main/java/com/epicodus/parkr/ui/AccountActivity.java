@@ -38,6 +38,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     @Bind(R.id.rentedSpotRecyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.userNameDisplay) TextView mUserNameDisplay;
+    @Bind(R.id.welcomeText) TextView mWelcomeText;
     @Bind(R.id.headline) TextView mHeadline;
     @Bind(R.id.logOutButton) Button mLogOutButton;
     @Bind(R.id.postSpotButton) Button mPostSpotButton;
@@ -58,6 +59,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             ArrayList<Spot> mSpots = new ArrayList<>();
             ArrayList<String> spotKeys = new ArrayList<>();
             Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userName = dataSnapshot.child("fullName").getValue().toString();
