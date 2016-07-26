@@ -41,8 +41,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ui.FindSpotsActivity"></activity>
-        <activity android:name=".ui.RentedSpotDetailActivity"></activity>
+        <activity android:name=".ui.FindSpotsActivity" />
+        <activity android:name=".ui.RentedSpotDetailActivity" />
+        <activity android:name=".ui.MySpotsActivity"></activity>
     </application>
 
 </manifest>

@@ -43,6 +43,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.logOutButton) Button mLogOutButton;
     @Bind(R.id.postSpotButton) Button mPostSpotButton;
     @Bind(R.id.findSpotsButton) Button mFindSpotsButton;
+    @Bind(R.id.mySpotsButton) Button mMySpotsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                         mSpots.clear();
                         for(DataSnapshot eachSpotSnapshot : AllSpotsDataSnapshot.getChildren()){
                             String compareSpotId = eachSpotSnapshot.getKey();
-                            for(String eachSpotKey : spotKeys)
-                                if(compareSpotId.equals(eachSpotKey)){
+                            for(String eachSpotKey : spotKeys) {
+                                if (compareSpotId.equals(eachSpotKey)) {
                                     String ownerId = eachSpotSnapshot.child("ownerID").getValue().toString();
                                     String address = eachSpotSnapshot.child("address").getValue().toString();
                                     String description = eachSpotSnapshot.child("description").getValue().toString();
@@ -91,6 +92,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                                     Spot newSpot = new Spot(eachSpotKey, ownerId, address, description, newLatLng, startDate, startTime, endDate, endTime);
                                     mSpots.add(newSpot);
                                 }
+                            }
                         }
                         mAdapter = new RentedSpotsAdapter(getApplicationContext(), mSpots);
                         mRecyclerView.setAdapter(mAdapter);
@@ -126,6 +128,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         mPostSpotButton.setOnClickListener(this);
         mLogOutButton.setOnClickListener(this);
         mFindSpotsButton.setOnClickListener(this);
+        mMySpotsButton.setOnClickListener(this);
     }
 
     private void logout() {
@@ -146,6 +149,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         } else if (view == mFindSpotsButton){
             Intent findSpotsIntent = new Intent(AccountActivity.this, FindSpotsActivity.class);
             startActivity(findSpotsIntent);
+        } else if (view == mMySpotsButton){
+            Intent mySpotsIntent = new Intent (AccountActivity.this, MySpotsActivity.class);
+            startActivity(mySpotsIntent);
         }
     }
 
