@@ -65,6 +65,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 String userName = dataSnapshot.child("fullName").getValue().toString();
                 mUserNameDisplay.setText(userName);
                 mUserNameDisplay.setTypeface(newFont);
+                mWelcomeText.setTypeface(newFont);
                 for(DataSnapshot spotKeySnapshot : dataSnapshot.child("rentedSpots").getChildren()){
                     String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);
