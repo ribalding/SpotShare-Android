@@ -4,7 +4,7 @@
 
 ##Description
 
-This is an Android App which gives people the ability to post parking spots that they own for rent during specified hours, and for others to seek spots for rent. 
+An Android app which allows users to create accounts and post parking spots which they own for others to use during specified dates/times as well as search for spots to rent themselves. Utilizes Java/XML for app functionality/ui, Google Maps, and Firebase as a back end.
 
 ##Setup 
 
@@ -19,6 +19,8 @@ This is an Android App which gives people the ability to post parking spots that
 * Android Studio
 * XML
 * Java
+* Firebase
+* Google Maps
 
 ##Legal
 
