@@ -11,7 +11,7 @@
         android:label="SpotShare"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,12 @@
         <activity android:name=".ui.SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.LoginActivity" />
         </activity>
         <activity android:name=".ui.AccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.LoginActivity" />
         </activity>
 
         <meta-data

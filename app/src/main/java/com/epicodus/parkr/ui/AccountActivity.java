@@ -14,7 +14,6 @@ import com.epicodus.parkr.Constants;
 import com.epicodus.parkr.R;
 import com.epicodus.parkr.adapters.RentedSpotsAdapter;
 import com.epicodus.parkr.models.Spot;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,14 +47,16 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
-        mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child("spots");
+        mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
+        mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        //VALUE EVENT LISTENER FOR USER REFERENCE
         mSpecificUserReference.addValueEventListener(new ValueEventListener() {
             ArrayList<Spot> mSpots = new ArrayList<>();
             ArrayList<String> spotKeys = new ArrayList<>();
@@ -63,10 +64,14 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //SET USER NAME AND FONTS
                 String userName = dataSnapshot.child("fullName").getValue().toString();
                 mUserNameDisplay.setText(userName);
                 mUserNameDisplay.setTypeface(newFont);
                 mWelcomeText.setTypeface(newFont);
+
+                //GET ALL RENTED SPOT KEYS FOR THIS USER
                 for(DataSnapshot spotKeySnapshot : dataSnapshot.child("rentedSpots").getChildren()){
                     String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);
@@ -75,25 +80,21 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onDataChange(DataSnapshot AllSpotsDataSnapshot) {
                         mSpots.clear();
+
+                        //CHECK USER'S RENTED SPOT KEYS AGAINST ALL SPOT KEYS
                         for(DataSnapshot eachSpotSnapshot : AllSpotsDataSnapshot.getChildren()){
                             String compareSpotId = eachSpotSnapshot.getKey();
                             for(String eachSpotKey : spotKeys) {
                                 if (compareSpotId.equals(eachSpotKey)) {
-                                    String ownerId = eachSpotSnapshot.child("ownerID").getValue().toString();
-                                    String address = eachSpotSnapshot.child("address").getValue().toString();
-                                    String description = eachSpotSnapshot.child("description").getValue().toString();
-                                    Double lat = Double.parseDouble(eachSpotSnapshot.child("latLng").child("latitude").getValue().toString());
-                                    Double lng = Double.parseDouble(eachSpotSnapshot.child("latLng").child("longitude").getValue().toString());
-                                    LatLng newLatLng = new LatLng(lat, lng);
-                                    String startDate = eachSpotSnapshot.child("startDate").getValue().toString();
-                                    String startTime = eachSpotSnapshot.child("startTime").getValue().toString();
-                                    String endDate = eachSpotSnapshot.child("endDate").getValue().toString();
-                                    String endTime = eachSpotSnapshot.child("endTime").getValue().toString();
-                                    Spot newSpot = new Spot(eachSpotKey, ownerId, address, description, newLatLng, startDate, startTime, endDate, endTime);
+
+                                    //IF KEYS MATCH, CREATE SPOT AND ADD IT TO SPOTS ARRAY
+                                    Spot newSpot = eachSpotSnapshot.getValue(Spot.class);
                                     mSpots.add(newSpot);
                                 }
                             }
                         }
+
+                        //DISPLAY RENTED SPOTS WITH RENTED SPOT ADAPTER
                         mAdapter = new RentedSpotsAdapter(getApplicationContext(), mSpots);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AccountActivity.this);
@@ -116,29 +117,30 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
+        //SET BUTTERKNIFE
         ButterKnife.bind(this);
 
+        //LOBSTER FONT
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mHeadline.setTypeface(newFont);
 
-        Intent infoIntent = getIntent();
-        String userName = infoIntent.getStringExtra("user");
-        mUserNameDisplay.setText(userName);
-
+        //SET CLICK LISTENERS
         mPostSpotButton.setOnClickListener(this);
         mLogOutButton.setOnClickListener(this);
         mFindSpotsButton.setOnClickListener(this);
         mMySpotsButton.setOnClickListener(this);
     }
 
+    //LOG OUT AND RETURN TO LOGIN ACTIVITY
     private void logout() {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(AccountActivity.this, MainActivity.class);
+        Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
 
+    //CLICK LISTENERS
     @Override
     public void onClick(View view) {
         if(view == mLogOutButton){
@@ -155,10 +157,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-
+        //EMPTY OVERRIDDEN ONSAVEINSTANCESTATE (NECESSARY SO APP DOESNT CRASH)
         @Override
-        public void onSaveInstanceState(Bundle saveInstanceState){
-
-        }
+        public void onSaveInstanceState(Bundle saveInstanceState){}
 
 }

@@ -10,17 +10,19 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Spot {
-    private String spotID;
-    private String ownerID;
-    private String renterID;
-    private String startDate;
-    private String startTime;
-    private String endDate;
-    private String endTime;
-    private boolean isCurrentlyRented;
-    private String description;
-    private LatLng latLng;
-    private String address;
+    String spotID;
+    String ownerID;
+    String renterID;
+    String startDate;
+    String startTime;
+    String endDate;
+    String endTime;
+    boolean isCurrentlyRented;
+    String description;
+    LatLng latLng;
+    String address;
+    double lat;
+    double lng;
 
     public Spot(){}
 
@@ -71,6 +73,9 @@ public class Spot {
         return this.latLng;
     }
 
+    public double getLat() {return lat;}
+
+    public double getLng() {return lng;}
 
     //Setters
 
@@ -95,8 +100,8 @@ public class Spot {
         this.description = description;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setLatLng(double lat, double lng) {
+        this.latLng = new LatLng(lat, lng);
     }
 
     public void setStartDate(String startDate) { this.startDate = startDate; }
@@ -106,6 +111,8 @@ public class Spot {
     public void setEndDate(String endDate) { this.endDate = endDate; }
 
     public void setEndTime(String endTime) { this.endTime = endTime; }
+
+
 
 
 }

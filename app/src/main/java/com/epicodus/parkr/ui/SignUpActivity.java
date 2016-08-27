@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             mAuthProgressDialog.dismiss();
                             String uid = task.getResult().getUser().getUid();
-                            mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+                            mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
                             User newUser = new User(uid, name, password, email);
                             saveUserToFirebase(newUser);
 

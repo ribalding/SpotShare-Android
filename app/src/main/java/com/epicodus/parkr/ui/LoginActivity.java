@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         if(v == mSignUpButton){
-            Intent signUpIntent = new Intent (MainActivity.this, SignUpActivity.class);
+            Intent signUpIntent = new Intent (LoginActivity.this, SignUpActivity.class);
             startActivity(signUpIntent);
         }else if(v == mLoginButton) {
             mSignInProgressDialog.show();
@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         mSignInProgressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Intent loginIntent = new Intent (MainActivity.this, AccountActivity.class);
+                            Intent loginIntent = new Intent (LoginActivity.this, AccountActivity.class);
                             startActivity(loginIntent);
                             finish();
                         } else if (!task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }

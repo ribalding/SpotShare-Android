@@ -82,7 +82,7 @@ public class NewSpotActivity extends FragmentActivity
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots");
-        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_spot);

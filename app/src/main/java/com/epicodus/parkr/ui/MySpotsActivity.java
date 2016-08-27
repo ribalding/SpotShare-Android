@@ -38,7 +38,7 @@ public class MySpotsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER).child(uid);
+        mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
         mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child("spots");
 
         super.onCreate(savedInstanceState);
