@@ -73,6 +73,7 @@ public class FindSpotsActivity extends FragmentActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots");
@@ -85,10 +86,11 @@ public class FindSpotsActivity extends FragmentActivity implements
 
         mGetSpotButton.setOnClickListener(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.findSpotsMap);
+        //INSTANTIATE MAP FRAGMENT
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.findSpotsMap);
         mapFragment.getMapAsync(this);
 
+        //INSTANTIATE GOOGLE API CLIENT
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -100,46 +102,49 @@ public class FindSpotsActivity extends FragmentActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
-                    Double latitude = Double.parseDouble(spotSnapshot.child("latLng").child("latitude").getValue().toString());
-                    Double longitude = Double.parseDouble(spotSnapshot.child("latLng").child("longitude").getValue().toString());
+                    Double latitude = Double.parseDouble(spotSnapshot.child("lat").getValue().toString());
+                    Double longitude = Double.parseDouble(spotSnapshot.child("lng").getValue().toString());
                     String description = spotSnapshot.child("description").getValue().toString();
                     LatLng newLatLng = new LatLng(latitude, longitude);
                     currentSpot = spotSnapshot.getKey();
                     Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
 
-                    if(isRented == true) {
+                    if(isRented) {
                         mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
-                    } else if (isRented == false){
+                    } else {
                         mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));;
                     }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
     }
 
+    //ON GOOGLE MAP READY
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
+
+        //SET MAP CLICK LISTENER
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
 
             @Override
-            public void onMapClick(LatLng latLng) {
-            }
+            public void onMapClick(LatLng latLng) {}
 
         });
 
+        //SET MARKER CLICK LISTENER
         mMap.setOnMarkerClickListener(this);
 
     }
 
+    //ON MY LOCATION BUTTON CLICKED
     @Override
     public boolean onMyLocationButtonClick() {
         return false;
@@ -156,21 +161,19 @@ public class FindSpotsActivity extends FragmentActivity implements
         }
     }
 
+    //ON REQUEST PERMISSION RESULT
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            return;
-        }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {return;}
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
             enableMyLocation();
         } else {
             mPermissionDenied = true;
         }
     }
 
+    //ON CONNECTED
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -178,22 +181,17 @@ public class FindSpotsActivity extends FragmentActivity implements
         }
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-
-        }
+        if (mLastLocation != null) {}
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
+    public void onConnectionSuspended(int i) {}
 
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
-    }
-
+    //GOOGLE API CLIENT ON START
     @Override
     public void onStart() {
         super.onStart();
@@ -207,6 +205,7 @@ public class FindSpotsActivity extends FragmentActivity implements
         AppIndex.AppIndexApi.start(mGoogleApiClient, viewAction);
     }
 
+    //GOOGLE API CLIENT ON STOP
     @Override
     public void onStop() {
         super.onStop();
@@ -231,7 +230,6 @@ public class FindSpotsActivity extends FragmentActivity implements
             Toast.makeText(FindSpotsActivity.this, "Spot Added to Your Rented Spots", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(FindSpotsActivity.this, AccountActivity.class);
             startActivity(intent);
-
         }
     }
 
@@ -242,29 +240,19 @@ public class FindSpotsActivity extends FragmentActivity implements
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String description = dataSnapshot.child("description").getValue().toString();
-                String startTime = dataSnapshot.child("startTime").getValue().toString();
-                String startDate = dataSnapshot.child("startDate").getValue().toString();
-                String endTime = dataSnapshot.child("endTime").getValue().toString();
-                String endDate = dataSnapshot.child("endDate").getValue().toString();
-                String address = dataSnapshot.child("address").getValue().toString();
-                mAddressDisplay.setText(address);
-                mDescriptionDisplay.setText(description);
-                mStartDateDisplay.setText(startDate);
-                mStartTimeDisplay.setText(startTime);
-                mEndDateDisplay.setText(endDate);
-                mEndTimeDisplay.setText(endTime);
+                mDescriptionDisplay.setText(dataSnapshot.child("description").getValue().toString());
+                mStartTimeDisplay.setText(dataSnapshot.child("startTime").getValue().toString());
+                mStartDateDisplay.setText(dataSnapshot.child("startDate").getValue().toString());
+                mEndTimeDisplay.setText(dataSnapshot.child("endTime").getValue().toString());
+                mEndDateDisplay.setText(dataSnapshot.child("endDate").getValue().toString());
+                mAddressDisplay.setText( dataSnapshot.child("address").getValue().toString());
                 currentSpot = dataSnapshot.getKey();
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
         return false;
     }
-
 
 }
