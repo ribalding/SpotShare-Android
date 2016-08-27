@@ -65,7 +65,6 @@ public class NewSpotActivity extends FragmentActivity
     private boolean markerCheck = true;
     private LatLng position;
 
-
     @Bind(R.id.addSpotButton) Button mAddSpotButton;
     @Bind(R.id.startDate) EditText mStartDate;
     @Bind(R.id.endDate) EditText mEndDate;
@@ -76,12 +75,13 @@ public class NewSpotActivity extends FragmentActivity
     @Bind(R.id.newSpotHeader) TextView mNewSpotHeader;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots");
+        mSpotReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS);
         mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
 
         super.onCreate(savedInstanceState);
@@ -89,12 +89,12 @@ public class NewSpotActivity extends FragmentActivity
 
         ButterKnife.bind(this);
 
+        //LOBSTER FONT
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mNewSpotHeader.setTypeface(newFont);
 
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        //SET UP MAP FRAGMENT
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         mAddSpotButton.setOnClickListener(this);
@@ -105,10 +105,9 @@ public class NewSpotActivity extends FragmentActivity
                     .addApi(LocationServices.API)
                     .addApi(AppIndex.API).build();
         }
-
-
     }
 
+    //ON MAP READY
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -128,12 +127,14 @@ public class NewSpotActivity extends FragmentActivity
 
     }
 
+    //ON MY LOCATION BUTTON CLICK
     @Override
     public boolean onMyLocationButtonClick() {
         return false;
     }
 
 
+    //ENABLE MY LOCATION
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -145,21 +146,20 @@ public class NewSpotActivity extends FragmentActivity
     }
 
 
+    //ON REQUEST PERMISSIONS RESULT
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            return;
-        }
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {return;}
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
             enableMyLocation();
         } else {
             mPermissionDenied = true;
         }
     }
 
+    //ON CONNECTED
     @Override
     public void onConnected(Bundle connectionHint) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -167,16 +167,14 @@ public class NewSpotActivity extends FragmentActivity
         }
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-
-        }
+        if (mLastLocation != null) {}
     }
 
+    //ON CONNECTION SUSPENDED
     @Override
-    public void onConnectionSuspended(int i) {
+    public void onConnectionSuspended(int i) {}
 
-    }
-
+    //GOOGLE API CLIENT ON START
     @Override
     public void onStart() {
         super.onStart();
@@ -190,6 +188,7 @@ public class NewSpotActivity extends FragmentActivity
         AppIndex.AppIndexApi.start(mGoogleApiClient, viewAction);
     }
 
+    //GOOGLE API CLIENT ON STOP
     @Override
     public void onStop() {
         super.onStop();
@@ -204,9 +203,7 @@ public class NewSpotActivity extends FragmentActivity
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     @Override
     public void onClick(View view) {
@@ -223,12 +220,11 @@ public class NewSpotActivity extends FragmentActivity
         }
     }
 
+    //ADD NEW SPOT
     public void addSpot(String ownerId, String address, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
         DatabaseReference pushRef = mSpotReference.push();
-        String key = pushRef.getKey();
-        Spot newSpot = new Spot(key,ownerId, address, description, spot, startDate, startTime, endDate, endTime);
-        pushRef.setValue(newSpot);
-        mUserReference.child("ownedSpots").child(key).setValue(key);
+        pushRef.setValue(new Spot(pushRef.getKey(),ownerId, address, description, spot, startDate, startTime, endDate, endTime));
+        mUserReference.child("ownedSpots").child(pushRef.getKey()).setValue(pushRef.getKey());
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
         Intent accountIntent = new Intent(NewSpotActivity.this, AccountActivity.class);
         startActivity(accountIntent);
@@ -246,7 +242,5 @@ public class NewSpotActivity extends FragmentActivity
 //        Date thisDate = cal.getTime();
 //        return thisDate;
 //    }
-
-
 
 }

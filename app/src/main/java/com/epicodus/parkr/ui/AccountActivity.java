@@ -76,6 +76,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                     String spotKey = spotKeySnapshot.getValue().toString();
                     spotKeys.add(spotKey);
                 }
+
+                //VALUE LISTENER FOR ALL SPOTS
                 mAllSpotsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot AllSpotsDataSnapshot) {
@@ -107,7 +109,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 });
-
             }
 
             @Override

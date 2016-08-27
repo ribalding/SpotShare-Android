@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.parkr.Constants;
 import com.epicodus.parkr.R;
 import com.epicodus.parkr.models.Spot;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +45,7 @@ public class RentedSpotDetailActivity extends AppCompatActivity implements View.
 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        mUserReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rented_spot_detail);
         ButterKnife.bind(this);
@@ -66,12 +67,14 @@ public class RentedSpotDetailActivity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View view) {
+
+        //REMOVES SPOT FROM USER
         if (view == mRemoveSpotButton){
             mUserReference.child("rentedSpots").child(spotID).removeValue();
-            mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots").child(spotID);
+            mSpotReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS).child(spotID);
             mSpotReference.child("renterID").removeValue();
             mSpotReference.child("isCurrentlyRented").setValue(false);
-            Toast.makeText(RentedSpotDetailActivity.this, "Spot has been removed from your spots.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RentedSpotDetailActivity.this, "Spot has been removed.", Toast.LENGTH_SHORT).show();
             Intent accountIntent = new Intent(RentedSpotDetailActivity.this, AccountActivity.class);
             startActivity(accountIntent);
         }

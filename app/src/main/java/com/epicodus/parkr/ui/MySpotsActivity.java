@@ -36,6 +36,8 @@ public class MySpotsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
@@ -44,6 +46,8 @@ public class MySpotsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_spots);
         ButterKnife.bind(this);
+
+        //VALUE LISTENER FOR SPECIFIC USER
         mSpecificUserReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -51,6 +55,8 @@ public class MySpotsActivity extends AppCompatActivity {
                     String userSpotKey = userSpotReference.getKey();
                     mSpotKeys.add(userSpotKey);
                 }
+
+                //VALUE LISTENER FOR ALL SPOTS
                 mAllSpotsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot spotsDataSnapshot) {
@@ -58,22 +64,13 @@ public class MySpotsActivity extends AppCompatActivity {
                             String foundSpotKey = foundSpot.getKey();
                             for(String compareSpotKey : mSpotKeys){
                                 if(compareSpotKey.equals(foundSpotKey)){
-                                    String ownerId = foundSpot.child("ownerID").getValue().toString();
-                                    String address = foundSpot.child("address").getValue().toString();
-                                    String description = foundSpot.child("description").getValue().toString();
-                                    Double lat = Double.parseDouble(foundSpot.child("latLng").child("latitude").getValue().toString());
-                                    Double lng = Double.parseDouble(foundSpot.child("latLng").child("longitude").getValue().toString());
-                                    LatLng newLatLng = new LatLng(lat, lng);
-                                    String startDate = foundSpot.child("startDate").getValue().toString();
-                                    String startTime = foundSpot.child("startTime").getValue().toString();
-                                    String endDate = foundSpot.child("endDate").getValue().toString();
-                                    String endTime = foundSpot.child("endTime").getValue().toString();
-                                    Spot newSpot = new Spot(foundSpotKey, ownerId, address, description, newLatLng, startDate, startTime, endDate, endTime);
+                                    Spot newSpot = foundSpot.getValue(Spot.class);
                                     mSpots.add(newSpot);
                                 }
                             }
                         }
 
+                        //DISPLAY RENTED SPOTS WITH RENTED SPOT ADAPTER
                         mAdapter = new MySpotsAdapter(getApplicationContext(), mSpots);
                         mMySpotsRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MySpotsActivity.this);
