@@ -44,22 +44,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
+        ButterKnife.bind(this);
 
+        //Firebase Auth Instance & Start Progress Dialog
         mAuth = FirebaseAuth.getInstance();
         createAuthProgressDialog();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-
-        ButterKnife.bind(this);
-
+        //Set Lobster Font
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mHeadline.setTypeface(newFont);
 
+        //Set Click Listener
         mSubmitSignUpButton.setOnClickListener(this);
     }
 
-
+    //Click Listener
     @Override
     public void onClick(View view) {
         if(view == mSubmitSignUpButton){
@@ -68,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createNewUser() {
+        //Grab
         name = mNewFullNameEditText.getText().toString().trim();
         email = mNewEmailEditText.getText().toString().trim();
         password = mNewPasswordEditText.getText().toString().trim();
@@ -108,13 +110,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private boolean isValidEmail(String email) {
-        boolean isGoodEmail =
-                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        boolean isGoodEmail = (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
         if (!isGoodEmail) {
             mNewEmailEditText.setError("Please enter a valid email address");
             return false;
+        } else {
+            return true;
         }
-        return isGoodEmail;
     }
 
     private boolean isValidName(String name) {

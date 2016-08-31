@@ -115,7 +115,8 @@
         android:minLines="1"
         android:layout_above="@+id/spotDescriptionEditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -127,7 +128,8 @@
         android:minLines="3"
         android:layout_above="@+id/addSpotButton"
         android:layout_alignRight="@+id/addSpotButton"
-        android:layout_alignEnd="@+id/addSpotButton" />
+        android:layout_alignEnd="@+id/addSpotButton"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"

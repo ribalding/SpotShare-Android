@@ -201,7 +201,21 @@ public class NewSpotActivity extends FragmentActivity
     @Override
     public void onClick(View view) {
         if(view == mAddSpotButton){
-            addSpot(uid, mAddress.getText().toString(),  mSpotDescriptionEditText.getText().toString(), position.latitude, position.longitude, mStartDate.getText().toString(), mStartTime.getText().toString(), mEndDate.getText().toString(), mEndTime.getText().toString());
+            String address = mAddress.getText().toString();
+            String description = mSpotDescriptionEditText.getText().toString();
+            String startDate = mStartDate.getText().toString();
+            String startTime = mStartTime.getText().toString();
+            String endDate = mEndDate.getText().toString();
+            String endTime = mEndTime.getText().toString();
+
+            if(!isValidEntry(address, mAddress) ||
+                    !isValidEntry(description, mSpotDescriptionEditText) ||
+                    !isValidEntry(startDate, mStartDate) ||
+                    !isValidEntry(startTime, mStartTime) ||
+                    !isValidEntry(endDate, mEndDate) ||
+                    !isValidEntry(endTime, mEndTime)) return;
+
+            addSpot(uid, address, description, position.latitude, position.longitude, startDate, startTime, endDate, endTime);
         }
     }
 
@@ -213,6 +227,15 @@ public class NewSpotActivity extends FragmentActivity
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
         Intent accountIntent = new Intent(NewSpotActivity.this, AccountActivity.class);
         startActivity(accountIntent);
+    }
+
+    private boolean isValidEntry(String name, EditText et) {
+        if (name.equals("")) {
+            et.setError("Cannot Leave Blank");
+            return false;
+        } else {
+            return true;
+        }
     }
 
 //    public Date convertToDate(String date){
