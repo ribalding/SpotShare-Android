@@ -33,7 +33,8 @@
         android:layout_alignStart="@+id/signupHeadline"
         android:layout_marginTop="48dp"
         android:layout_alignRight="@+id/signupHeadline"
-        android:layout_alignEnd="@+id/signupHeadline" />
+        android:layout_alignEnd="@+id/signupHeadline"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -50,7 +51,8 @@
         android:layout_alignStart="@+id/newFullNameEditText"
         android:layout_marginTop="20dp"
         android:layout_alignRight="@+id/newFullNameEditText"
-        android:layout_alignEnd="@+id/newFullNameEditText" />
+        android:layout_alignEnd="@+id/newFullNameEditText"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,7 +70,8 @@
         android:layout_alignRight="@+id/newEmailEditText"
         android:layout_alignEnd="@+id/newEmailEditText"
         android:textStyle="bold"
-        android:password="true" />
+        android:password="true"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -86,7 +89,8 @@
         android:layout_alignEnd="@+id/newPasswordEditText"
         android:layout_alignLeft="@+id/newPasswordEditText"
         android:layout_alignStart="@+id/newPasswordEditText"
-        android:password="true" />
+        android:password="true"
+        android:maxLines="1" />
 
     <Button
         android:layout_width="wrap_content"

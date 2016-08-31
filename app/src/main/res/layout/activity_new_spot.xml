@@ -50,7 +50,9 @@
         android:textColor="#eaeaea"
         android:layout_above="@+id/endDate"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha=".9"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -67,7 +69,9 @@
         android:textColor="#eaeaea"
         android:layout_alignTop="@+id/startDate"
         android:layout_toRightOf="@+id/startDate"
-        android:layout_toEndOf="@+id/startDate" />
+        android:layout_toEndOf="@+id/startDate"
+        android:alpha=".9"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,7 +88,9 @@
         android:textColor="#eaeaea"
         android:layout_alignTop="@+id/endTime"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha=".9"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -103,7 +109,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/endDate"
-        android:layout_toEndOf="@+id/endDate" />
+        android:layout_toEndOf="@+id/endDate"
+        android:alpha=".9"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="match_parent"
@@ -153,7 +161,7 @@
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Use this page to post a new spot that can be rented.  Tap on the map to set the location of your spot."
+        android:text="Use this page to post a new spot that can be rented.         Long tap on the map to set the location of your spot."
         android:id="@+id/newSpotDirections"
         android:layout_below="@+id/newSpotHeader"
         android:layout_alignParentLeft="true"

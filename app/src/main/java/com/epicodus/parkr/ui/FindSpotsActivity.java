@@ -25,6 +25,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -179,7 +181,7 @@ public class FindSpotsActivity extends FragmentActivity implements
         }
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {}
+        cameraChange(mLastLocation, mMap);
     }
 
     @Override
@@ -251,6 +253,12 @@ public class FindSpotsActivity extends FragmentActivity implements
             public void onCancelled(DatabaseError databaseError) {}
         });
         return false;
+    }
+
+    public void cameraChange(Location location, GoogleMap map){
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+        map.animateCamera(cameraUpdate);
     }
 
 }

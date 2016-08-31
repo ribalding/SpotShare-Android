@@ -27,11 +27,14 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +63,7 @@ public class NewSpotActivity extends FragmentActivity
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
+    private Marker mClickedMarker;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
     private boolean markerCheck = true;
@@ -116,10 +120,13 @@ public class NewSpotActivity extends FragmentActivity
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                if(markerCheck) {
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
+                if(mClickedMarker == null) {
+                    mClickedMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
                     position = latLng;
-                    markerCheck = false;
+                } else {
+                    mClickedMarker.setVisible(false);
+                    mClickedMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
+                    mClickedMarker.setVisible(true);
                 }
             }
         });
@@ -159,8 +166,8 @@ public class NewSpotActivity extends FragmentActivity
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        cameraChange(mLastLocation, mMap);
     }
 
     //ON CONNECTION SUSPENDED
@@ -238,17 +245,10 @@ public class NewSpotActivity extends FragmentActivity
         }
     }
 
-//    public Date convertToDate(String date){
-//        String[] dateDigits = date.split(".");
-//        int month = Integer.parseInt(dateDigits[0]);
-//        int day = Integer.parseInt(dateDigits[1]);
-//        int year = Integer.parseInt(dateDigits[2]);
-//        Calendar cal = Calendar.getInstance();
-//        cal.set(Calendar.DAY_OF_MONTH, day);
-//        cal.set(Calendar.MONTH, month);
-//        cal.set(Calendar.YEAR, year);
-//        Date thisDate = cal.getTime();
-//        return thisDate;
-//    }
+    public void cameraChange(Location location, GoogleMap map){
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+        map.animateCamera(cameraUpdate);
+    }
 
 }
