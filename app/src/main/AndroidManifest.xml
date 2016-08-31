@@ -11,19 +11,22 @@
         android:label="SpotShare"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUpActivity">
+        <activity android:name=".ui.SignUpActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.LoginActivity" />
         </activity>
-        <activity android:name=".ui.AccountActivity">
+        <activity android:name=".ui.AccountActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.LoginActivity" />
@@ -35,15 +38,19 @@
 
         <activity
             android:name=".ui.NewSpotActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ui.FindSpotsActivity" />
-        <activity android:name=".ui.RentedSpotDetailActivity" />
-        <activity android:name=".ui.MySpotsActivity"></activity>
+        <activity android:name=".ui.FindSpotsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.RentedSpotDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.MySpotsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

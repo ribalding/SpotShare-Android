@@ -67,7 +67,8 @@
         android:layout_alignStart="@+id/newEmailEditText"
         android:layout_alignRight="@+id/newEmailEditText"
         android:layout_alignEnd="@+id/newEmailEditText"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:password="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
         android:layout_alignRight="@+id/newPasswordEditText"
         android:layout_alignEnd="@+id/newPasswordEditText"
         android:layout_alignLeft="@+id/newPasswordEditText"
-        android:layout_alignStart="@+id/newPasswordEditText" />
+        android:layout_alignStart="@+id/newPasswordEditText"
+        android:password="true" />
 
     <Button
         android:layout_width="wrap_content"

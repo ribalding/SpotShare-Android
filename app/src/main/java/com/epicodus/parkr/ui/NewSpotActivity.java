@@ -113,10 +113,9 @@ public class NewSpotActivity extends FragmentActivity
         mMap = googleMap;
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
-
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
+            public void onMapLongClick(LatLng latLng) {
                 if(markerCheck) {
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Your Spot").draggable(true));
                     position = latLng;
@@ -124,7 +123,6 @@ public class NewSpotActivity extends FragmentActivity
                 }
             }
         });
-
     }
 
     //ON MY LOCATION BUTTON CLICK
@@ -136,10 +134,8 @@ public class NewSpotActivity extends FragmentActivity
 
     //ENABLE MY LOCATION
     private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            PermissionUtils.requestPermission(NewSpotActivity.this, LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PermissionUtils.requestPermission(NewSpotActivity.this, LOCATION_PERMISSION_REQUEST_CODE, Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             mMap.setMyLocationEnabled(true);
         }
@@ -148,10 +144,8 @@ public class NewSpotActivity extends FragmentActivity
 
     //ON REQUEST PERMISSIONS RESULT
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {return;}
-
         if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
             enableMyLocation();
         } else {
@@ -167,7 +161,6 @@ public class NewSpotActivity extends FragmentActivity
         }
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {}
     }
 
     //ON CONNECTION SUSPENDED
@@ -208,22 +201,14 @@ public class NewSpotActivity extends FragmentActivity
     @Override
     public void onClick(View view) {
         if(view == mAddSpotButton){
-            String description = mSpotDescriptionEditText.getText().toString();
-            String startDate = mStartDate.getText().toString();
-//            Date newDate = convertToDate(startDate);
-//            Log.d("test", newDate.toString());
-            String startTime = mStartTime.getText().toString();
-            String endDate = mEndDate.getText().toString();
-            String endTime = mEndTime.getText().toString();
-            String address = mAddress.getText().toString();
-            addSpot(uid, address, description, position, startDate, startTime, endDate, endTime);
+            addSpot(uid, mAddress.getText().toString(),  mSpotDescriptionEditText.getText().toString(), position.latitude, position.longitude, mStartDate.getText().toString(), mStartTime.getText().toString(), mEndDate.getText().toString(), mEndTime.getText().toString());
         }
     }
 
     //ADD NEW SPOT
-    public void addSpot(String ownerId, String address, String description,LatLng spot, String startDate, String startTime, String endDate, String endTime){
+    public void addSpot(String ownerId, String address, String description, Double lat, Double lng, String startDate, String startTime, String endDate, String endTime){
         DatabaseReference pushRef = mSpotReference.push();
-        pushRef.setValue(new Spot(pushRef.getKey(),ownerId, address, description, spot, startDate, startTime, endDate, endTime));
+        pushRef.setValue(new Spot(pushRef.getKey(),ownerId, address, description, lat, lng, startDate, startTime, endDate, endTime));
         mUserReference.child("ownedSpots").child(pushRef.getKey()).setValue(pushRef.getKey());
         Toast.makeText(NewSpotActivity.this, "New Spot Added Successfully", Toast.LENGTH_SHORT).show();
         Intent accountIntent = new Intent(NewSpotActivity.this, AccountActivity.class);

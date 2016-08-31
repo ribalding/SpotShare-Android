@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ui.FindSpotsActivity"
     android:background="@color/abc_search_url_text_normal">
 
@@ -28,10 +24,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/addressDisplay"
         android:layout_marginTop="37dp"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_below="@+id/findSpotsMap"
         android:layout_alignLeft="@+id/descriptionDisplay"
@@ -42,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="Address"
         android:id="@+id/addressTitle"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_alignTop="@+id/addressDisplay"
         android:layout_alignParentLeft="true"
@@ -56,19 +51,19 @@
         android:layout_height="wrap_content"
         android:text="Description"
         android:id="@+id/descriptionTitle"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:textStyle="bold"
         android:layout_below="@+id/addressTitle"
         android:layout_alignLeft="@+id/addressTitle"
-        android:layout_alignStart="@+id/addressTitle" />
+        android:layout_alignStart="@+id/addressTitle"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/descriptionDisplay"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_below="@+id/addressDisplay"
         android:layout_toRightOf="@+id/availableTitle"
@@ -81,20 +76,20 @@
         android:layout_height="wrap_content"
         android:text="Available:"
         android:id="@+id/availableTitle"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:textStyle="bold"
         android:layout_below="@+id/descriptionTitle"
         android:layout_alignLeft="@+id/descriptionTitle"
         android:layout_alignStart="@+id/descriptionTitle"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/startDateDisplay"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_below="@+id/availableTitle"
         android:layout_alignRight="@+id/descriptionTitle"
@@ -104,9 +99,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/startTimeDisplay"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_below="@+id/startDateDisplay"
         android:layout_alignLeft="@+id/startDateDisplay"
@@ -115,20 +109,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/endDateDisplay"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_alignTop="@+id/startDateDisplay"
-        android:layout_alignLeft="@+id/descriptionDisplay"
-        android:layout_alignStart="@+id/descriptionDisplay" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/endTimeDisplay"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="#eaeaea"
         android:layout_below="@+id/endDateDisplay"
         android:layout_alignLeft="@+id/endDateDisplay"
@@ -140,12 +131,30 @@
         android:layout_height="wrap_content"
         android:text="Get Spot"
         android:id="@+id/getSpotButton"
-        android:layout_below="@+id/endDateDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:background="#617f61"
         android:textColor="#eaeaea"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        android:paddingRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Select A Spot To View Details"
+        android:id="@+id/infoTextView"
+        android:layout_below="@+id/findSpotsMap"
+        android:layout_marginTop="10dp"
+        android:textSize="13dp"
+        android:layout_alignRight="@+id/getSpotButton"
+        android:layout_alignEnd="@+id/getSpotButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:textColor="#617f61"
+        android:textStyle="bold"
+        android:textIsSelectable="true" />
 
 </RelativeLayout>

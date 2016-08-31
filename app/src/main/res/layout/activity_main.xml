@@ -58,7 +58,8 @@
         android:hint="Email"
         android:singleLine="true"
         android:layout_above="@+id/passwordInput"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -73,7 +74,8 @@
         android:layout_above="@+id/loginButton"
         android:layout_alignLeft="@+id/emailInput"
         android:layout_alignStart="@+id/emailInput"
-        android:password="true" />
+        android:password="true"
+        android:maxLines="1" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

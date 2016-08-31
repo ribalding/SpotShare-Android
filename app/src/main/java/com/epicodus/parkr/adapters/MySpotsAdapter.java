@@ -58,7 +58,7 @@ public class MySpotsAdapter extends RecyclerView.Adapter<MySpotsAdapter.MySpotsV
 
         public void bindMySpots(Spot spot){
             mMySpotsAddress.setText(spot.getAddress());
-            if(spot.getIsCurrentlyRented()) {
+            if(spot.isCurrentlyRented()) {
                 mMySpotsCurrentlyRented.setText("Currently Rented");
             } else {
                 mMySpotsCurrentlyRented.setText("Not Currently Rented");

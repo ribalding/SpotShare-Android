@@ -24,13 +24,15 @@ public class Spot {
     double lat;
     double lng;
 
-    public Spot(){}
+    public Spot() {
+    }
 
-    public Spot(String spotID, String ownerID, String address, String description, LatLng latLng, String startDate, String startTime, String endDate, String endTime){
+    public Spot(String spotID, String ownerID, String address, String description, Double lat, Double lng, String startDate, String startTime, String endDate, String endTime) {
         this.spotID = spotID;
         this.ownerID = ownerID;
         this.description = description;
-        this.latLng = latLng;
+        this.lat = lat;
+        this.lng = lng;
         this.isCurrentlyRented = false;
         this.startDate = startDate;
         this.startTime = startTime;
@@ -43,50 +45,72 @@ public class Spot {
     //Getters
 
 
-    public String getSpotID() {return spotID;}
+    public String getSpotID() {
+        return spotID;
+    }
 
-    public String getOwnerID(){ return this.ownerID; }
+    public String getOwnerID() {
+        return this.ownerID;
+    }
 
-    public String getAddress(){ return this.address; }
+    public String getAddress() {
+        return this.address;
+    }
 
-    public String getStartDate() { return this.startDate; }
+    public String getStartDate() {
+        return this.startDate;
+    }
 
-    public String getStartTime() { return this.startTime; }
+    public String getStartTime() {
+        return this.startTime;
+    }
 
-    public String getEndDate() { return this.endDate; }
+    public String getEndDate() {
+        return this.endDate;
+    }
 
-    public String getEndTime() { return this.endTime; }
+    public String getEndTime() {
+        return this.endTime;
+    }
 
-    public String getRenterID(){
+    public String getRenterID() {
         return this.renterID;
     }
 
-    public boolean getIsCurrentlyRented(){
+    public boolean isCurrentlyRented() {
         return this.isCurrentlyRented;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
-    public LatLng getLatLng(){
+    public LatLng getLatLng() {
         return this.latLng;
     }
 
-    public double getLat() {return lat;}
+    public double getLat() {
+        return lat;
+    }
 
-    public double getLng() {return lng;}
+    public double getLng() {
+        return lng;
+    }
 
     //Setters
 
 
-    public void setSpotID(String spotID) { this.spotID = spotID; }
+    public void setSpotID(String spotID) {
+        this.spotID = spotID;
+    }
 
     public void setOwnerID(String ownerID) {
         this.ownerID = ownerID;
     }
 
-    public void setAddress(String address){ this.address = address; }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public void setRenterID(String renterID) {
         this.renterID = renterID;
@@ -104,15 +128,20 @@ public class Spot {
         this.latLng = new LatLng(lat, lng);
     }
 
-    public void setStartDate(String startDate) { this.startDate = startDate; }
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
-    public void setStartTime(String startTime) { this.startTime = startTime; }
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
-    public void setEndDate(String endDate) { this.endDate = endDate; }
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
-    public void setEndTime(String endTime) { this.endTime = endTime; }
-
-
-
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
 }

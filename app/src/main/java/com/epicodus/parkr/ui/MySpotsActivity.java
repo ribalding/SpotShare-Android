@@ -41,7 +41,7 @@ public class MySpotsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mSpecificUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
-        mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child("spots");
+        mAllSpotsReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_spots);

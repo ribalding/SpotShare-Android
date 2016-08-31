@@ -35,7 +35,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/userNameDisplay"
         android:layout_below="@+id/welcomeText"
         android:layout_centerHorizontal="true"
@@ -61,7 +60,9 @@
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:alpha=".9"
+        android:allowUndo="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,11 +71,13 @@
         android:paddingRight="3dp"
         android:text="Find Spots"
         android:id="@+id/findSpotsButton"
-        android:background="@color/place_autocomplete_search_hint"
+        android:background="#eaeaea"
         android:textStyle="bold"
         android:textColor="@color/background_material_dark"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/logOutButton" />
+        android:layout_toLeftOf="@+id/logOutButton"
+        android:alpha=".9"
+        android:allowUndo="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -83,13 +86,14 @@
         android:paddingRight="4dp"
         android:text="Post A Spot"
         android:id="@+id/postSpotButton"
-        android:background="@color/hint_foreground_material_light"
+        android:background="@color/place_autocomplete_search_hint"
         android:allowUndo="true"
-        android:textColor="#eaeaea"
+        android:textColor="@color/background_material_dark"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/findSpotsButton"
-        android:layout_toStartOf="@+id/findSpotsButton" />
+        android:layout_toStartOf="@+id/findSpotsButton"
+        android:alpha=".9" />
 
     <Button
         android:layout_width="wrap_content"
@@ -104,7 +108,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_toStartOf="@+id/postSpotButton"
-        android:layout_toLeftOf="@+id/postSpotButton" />
+        android:layout_toLeftOf="@+id/postSpotButton"
+        android:alpha=".9"
+        android:allowUndo="true" />
 
 </RelativeLayout>
 </FrameLayout>

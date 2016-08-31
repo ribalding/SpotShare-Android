@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.epicodus.parkr.Constants;
 import com.epicodus.parkr.PermissionUtils;
 import com.epicodus.parkr.R;
+import com.epicodus.parkr.models.Spot;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
@@ -76,7 +77,7 @@ public class FindSpotsActivity extends FragmentActivity implements
         //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        mSpotReference = FirebaseDatabase.getInstance().getReference().child("spots");
+        mSpotReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS);
         mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
 
         super.onCreate(savedInstanceState);
@@ -102,17 +103,14 @@ public class FindSpotsActivity extends FragmentActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
-                    Double latitude = Double.parseDouble(spotSnapshot.child("lat").getValue().toString());
-                    Double longitude = Double.parseDouble(spotSnapshot.child("lng").getValue().toString());
-                    String description = spotSnapshot.child("description").getValue().toString();
-                    LatLng newLatLng = new LatLng(latitude, longitude);
-                    currentSpot = spotSnapshot.getKey();
-                    Boolean isRented = Boolean.parseBoolean(spotSnapshot.child("isCurrentlyRented").getValue().toString());
+                    Spot foundSpot = spotSnapshot.getValue(Spot.class);
+                    currentSpot = foundSpot.getSpotID();
 
-                    if(isRented) {
-                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description));
+                    //IF CURRENTLY RENTED
+                    if(foundSpot.isCurrentlyRented()) {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()));
                     } else {
-                        mMap.addMarker(new MarkerOptions().position(newLatLng).title(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));;
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));;
                     }
                 }
             }
