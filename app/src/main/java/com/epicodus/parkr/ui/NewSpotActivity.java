@@ -220,7 +220,8 @@ public class NewSpotActivity extends FragmentActivity
                     !isValidEntry(startDate, mStartDate) ||
                     !isValidEntry(startTime, mStartTime) ||
                     !isValidEntry(endDate, mEndDate) ||
-                    !isValidEntry(endTime, mEndTime)) return;
+                    !isValidEntry(endTime, mEndTime) ||
+                    !isValidMapEntry(position)) return;
 
             addSpot(uid, address, description, position.latitude, position.longitude, startDate, startTime, endDate, endTime);
         }
@@ -239,6 +240,15 @@ public class NewSpotActivity extends FragmentActivity
     private boolean isValidEntry(String name, EditText et) {
         if (name.equals("")) {
             et.setError("Cannot Leave Blank");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean isValidMapEntry (LatLng latLng){
+        if(latLng == null){
+            Toast.makeText(NewSpotActivity.this, "Please Add Your Spot to the Map", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

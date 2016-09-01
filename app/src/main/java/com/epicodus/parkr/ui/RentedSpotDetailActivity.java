@@ -39,23 +39,28 @@ public class RentedSpotDetailActivity extends AppCompatActivity implements View.
     @Bind(R.id.spotDetailEndDate) TextView mSpotDetailEndDate;
     @Bind(R.id.spotDetailEndTime) TextView mSpotDetailEndTime;
     @Bind(R.id.removeSpotButton) Button mRemoveSpotButton;
+    @Bind(R.id.backButton) Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
-        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rented_spot_detail);
         ButterKnife.bind(this);
-        mRemoveSpotButton.setOnClickListener(this);
 
+        //Firebase Set Up
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
+
+        //Set Click Listeners
+        mRemoveSpotButton.setOnClickListener(this);
+        mBackButton.setOnClickListener(this);
+
+        //Get Selected Spot From Intent
         mSpots = Parcels.unwrap(getIntent().getParcelableExtra("spots"));
         int startingPosition = getIntent().getIntExtra("position", 0);
-
         Spot currentSpot = mSpots.get(startingPosition);
-        mSpotDetailAddress.setText("Address: " + currentSpot.getAddress());
+        mSpotDetailAddress.setText(currentSpot.getAddress());
         mSpotDetailDescription.setText("Description: " + currentSpot.getDescription());
         mSpotDetailStartDate.setText("Start Date:" + currentSpot.getStartDate());
         mSpotDetailStartTime.setText("Start Time: " + currentSpot.getStartTime());
@@ -77,6 +82,8 @@ public class RentedSpotDetailActivity extends AppCompatActivity implements View.
             Toast.makeText(RentedSpotDetailActivity.this, "Spot has been removed.", Toast.LENGTH_SHORT).show();
             Intent accountIntent = new Intent(RentedSpotDetailActivity.this, AccountActivity.class);
             startActivity(accountIntent);
+        } else if (view == mBackButton){
+            onBackPressed();
         }
     }
 }

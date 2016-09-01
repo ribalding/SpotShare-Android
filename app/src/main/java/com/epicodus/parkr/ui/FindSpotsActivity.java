@@ -72,22 +72,24 @@ public class FindSpotsActivity extends FragmentActivity implements
     @Bind(R.id.endDateDisplay) TextView mEndDateDisplay;
     @Bind(R.id.endTimeDisplay) TextView mEndTimeDisplay;
     @Bind(R.id.getSpotButton) Button mGetSpotButton;
+    @Bind(R.id.backButton) Button mBackButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_find_spots);
+        ButterKnife.bind(this);
+
         //FIREBASE - SET UP DATABASE AND GET CURRENT LOGGED IN USER
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mSpotReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS);
         mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USERS).child(uid);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_spots);
-
-        ButterKnife.bind(this);
-
+        //SET CLICK LISTENER
         mGetSpotButton.setOnClickListener(this);
+        mBackButton.setOnClickListener(this);
 
         //INSTANTIATE MAP FRAGMENT
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.findSpotsMap);
@@ -151,6 +153,7 @@ public class FindSpotsActivity extends FragmentActivity implements
     }
 
 
+    //ENABLE MY LOCATION
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -230,6 +233,8 @@ public class FindSpotsActivity extends FragmentActivity implements
             Toast.makeText(FindSpotsActivity.this, "Spot Added to Your Rented Spots", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(FindSpotsActivity.this, AccountActivity.class);
             startActivity(intent);
+        } else if (view == mBackButton){
+            onBackPressed();
         }
     }
 

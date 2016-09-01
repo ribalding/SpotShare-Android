@@ -20,7 +20,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#eaeaea"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +34,8 @@
         android:id="@+id/spotDetailDescription"
         android:layout_below="@+id/spotDetailAddress"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#eaeaea" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,16 +44,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/spotDetailStartTime"
-        android:layout_below="@+id/spotDetailStartDate" />
+        android:layout_below="@+id/spotDetailStartDate"
+        android:textColor="#eaeaea" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/spotDetailEndTime"
-        android:layout_below="@+id/spotDetailEndDate" />
+        android:textColor="#eaeaea"
+        android:layout_below="@+id/spotDetailEndDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +67,8 @@
         android:id="@+id/spotDetailStartDate"
         android:layout_below="@+id/spotDetailDescription"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#eaeaea" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,18 +79,34 @@
         android:id="@+id/spotDetailEndDate"
         android:layout_below="@+id/spotDetailStartTime"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#eaeaea" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove From My Spots"
+        android:text="Remove From My Rented Spots"
         android:id="@+id/removeSpotButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:textColor="#eaeaea"
+        android:background="#617f61"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_above="@+id/backButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#eaeaea"
-        android:background="@android:color/holo_red_light" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/backButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/removeSpotButton"
+        android:layout_alignEnd="@+id/removeSpotButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

@@ -55,14 +55,14 @@
         android:layout_height="wrap_content"
         android:text="Log Out"
         android:id="@+id/logOutButton"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/background_floating_material_dark"
         android:textColor="#eaeaea"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:alpha=".9"
-        android:allowUndo="true" />
+        android:allowUndo="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         android:paddingRight="4dp"
         android:text="Post A Spot"
         android:id="@+id/postSpotButton"
-        android:background="@color/place_autocomplete_search_hint"
+        android:background="#eaeaea"
         android:allowUndo="true"
         android:textColor="@color/background_material_dark"
         android:textStyle="bold"
@@ -102,8 +102,8 @@
         android:paddingRight="5dp"
         android:text="My Spots"
         android:id="@+id/mySpotsButton"
-        android:background="@color/background_floating_material_dark"
-        android:textColor="#eaeaea"
+        android:background="#eaeaea"
+        android:textColor="@color/background_material_dark"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
