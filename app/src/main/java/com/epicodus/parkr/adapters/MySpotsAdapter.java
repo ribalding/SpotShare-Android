@@ -1,10 +1,13 @@
 package com.epicodus.parkr.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.epicodus.parkr.R;
@@ -60,6 +63,10 @@ public class MySpotsAdapter extends RecyclerView.Adapter<MySpotsAdapter.MySpotsV
             mMySpotsAddress.setText(spot.getAddress());
             if(spot.isCurrentlyRented()) {
                 mMySpotsCurrentlyRented.setText("Currently Rented");
+                mMySpotsAddress.setTextColor(Color.parseColor("#617f61"));
+                mMySpotsCurrentlyRented.setTextColor(Color.parseColor("#617f61"));
+                mMySpotsDescription.setTextColor(Color.parseColor("#617f61"));
+
             } else {
                 mMySpotsCurrentlyRented.setText("Not Currently Rented");
             }
