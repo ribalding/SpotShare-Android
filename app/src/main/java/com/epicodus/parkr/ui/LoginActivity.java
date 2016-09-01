@@ -38,15 +38,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        createSignInProgressDialog();
-        mAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
 
+        //Initialize Sign In Dialog
+        createSignInProgressDialog();
+
+        //Get Firebase Auth Instance
+        mAuth = FirebaseAuth.getInstance();
+
+        //Set Lobster Font
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         mHeadline.setTypeface(newFont);
         mHeadline2.setTypeface(newFont);
 
+        //Set Click Listeners
         mSignUpButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
 
@@ -87,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+    //Sign In Dialog
     private void createSignInProgressDialog() {
         mSignInProgressDialog = new ProgressDialog(this);
         mSignInProgressDialog.setTitle("Loading...");
