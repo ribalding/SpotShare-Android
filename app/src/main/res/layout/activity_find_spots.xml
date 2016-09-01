@@ -139,8 +139,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/endTimeDisplay"
-        android:layout_toStartOf="@+id/endTimeDisplay" />
+        android:layout_toLeftOf="@+id/backButton"
+        android:layout_toStartOf="@+id/backButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -162,9 +162,10 @@
         android:text="Back"
         android:id="@+id/backButton"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/endTimeDisplay"
         android:layout_alignTop="@+id/getSpotButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/infoTextView"
+        android:layout_toEndOf="@+id/infoTextView" />
 
 </RelativeLayout>

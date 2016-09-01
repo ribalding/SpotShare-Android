@@ -24,16 +24,15 @@ public class Spot {
     double lat;
     double lng;
 
-    public Spot() {
-    }
+    public Spot() {}
 
-    public Spot(String spotID, String ownerID, String address, String description, Double lat, Double lng, String startDate, String startTime, String endDate, String endTime) {
+    public Spot(String spotID, String ownerID, String address, String description, Double lat, Double lng, String startDate, String startTime, String endDate, String endTime, boolean isCurrentlyRented) {
         this.spotID = spotID;
         this.ownerID = ownerID;
         this.description = description;
         this.lat = lat;
         this.lng = lng;
-        this.isCurrentlyRented = false;
+        this.isCurrentlyRented = isCurrentlyRented;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;

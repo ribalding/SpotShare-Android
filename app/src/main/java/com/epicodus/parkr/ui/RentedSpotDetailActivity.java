@@ -79,6 +79,7 @@ public class RentedSpotDetailActivity extends AppCompatActivity implements View.
             mSpotReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SPOTS).child(spotID);
             mSpotReference.child("renterID").removeValue();
             mSpotReference.child("isCurrentlyRented").setValue(false);
+            mSpotReference.child("currentlyRented").setValue(false);
             Toast.makeText(RentedSpotDetailActivity.this, "Spot has been removed.", Toast.LENGTH_SHORT).show();
             Intent accountIntent = new Intent(RentedSpotDetailActivity.this, AccountActivity.class);
             startActivity(accountIntent);

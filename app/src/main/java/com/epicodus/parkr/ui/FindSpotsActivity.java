@@ -108,13 +108,12 @@ public class FindSpotsActivity extends FragmentActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot spotSnapshot : dataSnapshot.getChildren()){
                     Spot foundSpot = spotSnapshot.getValue(Spot.class);
-                    currentSpot = foundSpot.getSpotID();
 
                     //IF CURRENTLY RENTED
                     if(foundSpot.isCurrentlyRented()) {
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()).snippet(foundSpot.getSpotID()));
                     } else {
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));;
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(foundSpot.getLat(), foundSpot.getLng())).title(foundSpot.getDescription()).snippet(foundSpot.getSpotID()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));;
                     }
                 }
             }
@@ -228,6 +227,7 @@ public class FindSpotsActivity extends FragmentActivity implements
         if (view == mGetSpotButton){
             mSpotReference.child(currentSpot).child("renterID").setValue(uid);
             mSpotReference.child(currentSpot).child("isCurrentlyRented").setValue(true);
+            mSpotReference.child(currentSpot).child("currentlyRented").setValue(true);
             DatabaseReference newSpotRef = mUserReference.child("rentedSpots").child(currentSpot);
             newSpotRef.setValue(currentSpot);
             Toast.makeText(FindSpotsActivity.this, "Spot Added to Your Rented Spots", Toast.LENGTH_SHORT).show();
@@ -240,7 +240,7 @@ public class FindSpotsActivity extends FragmentActivity implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
+        currentSpot = marker.getSnippet();
         mSpotReference.child(currentSpot).addValueEventListener(new ValueEventListener(){
 
             @Override
